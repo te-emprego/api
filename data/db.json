@@ -1,0 +1,13 @@
+[
+  {
+    "id": "1",
+    "nome": "Daniel Bonifacio",
+    "email": "danielbonifacio@outlook.com",
+    "permissoes": [
+      "twitter/incluir",
+      "twitter/alterar",
+      "twitter/remover",
+      "twitter/visualizar"
+    ]
+  }
+]

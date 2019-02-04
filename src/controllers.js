@@ -51,4 +51,6 @@ module.exports = {
                 .send({ message: 'Permissão encontrada.' })
         })
     }
+
+
 }
