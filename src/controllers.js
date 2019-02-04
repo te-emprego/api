@@ -2,9 +2,26 @@ const Users = require('./models')
 const jwt = require('jsonwebtoken')
 
 module.exports = {
-    login(req, res) {
-        const { id } = req.params
-        const user = Users.find(user => user.id == id)
+    async criarUsuario(req, res) {
+        const { email, nome, permissoes, senha } = req.body
+
+        const created = await Users.create({ nome, email, senha, permissoes })
+
+        return res
+            .status(201)
+            .send({ user: created })
+    },
+
+    async login(req, res) {
+        const { email, senha }= req.body
+
+        const user = await Users.find(email)
+        
+        if (user.senha != senha) {
+            return res
+                .status(401)
+                .send({ message: 'Credenciais incorretas.' })
+        }
 
         if (user === undefined) {
             return res
@@ -14,7 +31,9 @@ module.exports = {
 
         const token = jwt.sign(user, process.env.SECRET, { expiresIn: '24h' })
 
-        res.send({ token })
+        res
+            .status(200)
+            .send({ token })
     },
 
     /**
@@ -37,6 +56,8 @@ module.exports = {
                     .status(400)
                     .send({ message: 'Token inválido.' })
             }
+
+            console.log(user)
 
             const permissao = user.permissoes.find(perm => perm === slug)
 

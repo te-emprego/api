@@ -1,8 +1,13 @@
 const router = require('express').Router()
-const { validarACL, login } = require('./controllers')
+const {
+    validarACL,
+    login,
+    criarUsuario
+} = require('./controllers')
 
 router
-    .get('/login/:id', login)
+    .post('/login', login)
+    .post('/criar', criarUsuario)
     .post('/acl', validarACL)
 
 module.exports = router

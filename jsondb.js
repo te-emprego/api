@@ -9,7 +9,7 @@ const save = data => fs.writeFileSync(__dirname + '/data/db.json', data)
 const jsondb = {
     async find(id){
         const Users = parse(db())
-        return Users.find(user => user.id == id)
+        return Users.find(user => user.id == id || user.email == id)
     },
     async update(id, newValues){
         const Users = parse(db())

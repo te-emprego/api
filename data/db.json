@@ -3,11 +3,22 @@
     "id": "1",
     "nome": "Daniel Bonifacio",
     "email": "danielbonifacio@outlook.com",
+    "senha": "123456",
     "permissoes": [
       "twitter/incluir",
       "twitter/alterar",
       "twitter/remover",
-      "twitter/visualizar"
+      "twitter/visualizar",
+      "posts/incluir"
+    ]
+  },
+  {
+    "id": "clai",
+    "nome": "Fulano de Tal",
+    "email": "fulano@outlook.com",
+    "senha": "123456",
+    "permissoes": [
+      "posts/*"
     ]
   }
 ]
