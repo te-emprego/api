@@ -1,6 +1,10 @@
 const Users = require('./models')
 const jwt = require('jsonwebtoken')
 
+function hasRole(perm, slug) {
+    return RegExp(`^${perm}`, 'gi').test(slug)
+}
+
 module.exports = {
     async criarUsuario(req, res) {
         const { email, nome, permissoes, senha } = req.body
@@ -57,9 +61,7 @@ module.exports = {
                     .send({ message: 'Token inválido.' })
             }
 
-            console.log(user)
-
-            const permissao = user.permissoes.find(perm => perm === slug)
+            const permissao = user.permissoes.find(perm => hasRole(perm, slug))
 
             if (permissao === undefined) {
                 return res
