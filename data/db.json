@@ -3,22 +3,38 @@
     "id": "1",
     "nome": "Daniel Bonifacio",
     "email": "danielbonifacio@outlook.com",
-    "senha": "123456",
-    "permissoes": [
-      "twitter/incluir",
-      "twitter/alterar",
-      "twitter/remover",
-      "twitter/visualizar",
-      "posts/incluir"
-    ]
+    "senha": "hash(123)",
+    "perfil": {
+      "nome": "Empregador",
+      "id": "1",
+      "permissoes": [
+        "vagas/incluir",
+        "vagas/alterar?ao",
+        "vagas/remover?ao",
+        "vagas/visualizar",
+        "perfis/empresas/alterar?ao",
+        "perfis/empresas/desativar?ao",
+        "perfis/empresas/ativar?ao",
+        "perfis/empresas/visualizar"
+      ]
+    }
   },
   {
     "id": "clai",
     "nome": "Fulano de Tal",
     "email": "fulano@outlook.com",
-    "senha": "123456",
-    "permissoes": [
-      "posts/"
-    ]
+    "senha": "hash(123)",
+    "perfil": {
+      "nome": "Empregado",
+      "id": "2",
+      "permissoes": [
+        "vagas/visualizar",
+        "perfis/pessoas/alterar?ao",
+        "perfis/pessoas/desativar?ao",
+        "perfis/pessoas/ativar?ao",
+        "perfis/empresas/visualizar",
+        "perfis/pessoas/visualizar"
+      ]
+    }
   }
 ]
