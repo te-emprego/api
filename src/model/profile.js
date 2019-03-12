@@ -10,10 +10,14 @@ const UserSchema = new Schema({
   permissions: {
     type: Array,
   },
-  users: [{
-    type: Schema.Types.ObjectId,
-    ref: 'user',
-  }],
+  users: {
+    select: false,
+    unique: true,
+    type: [{
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+    }],
+  },
 });
 
 module.exports = mongoose.model('profile', UserSchema);

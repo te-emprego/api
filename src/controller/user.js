@@ -186,7 +186,7 @@ const setProfile = async (req, res) => {
       .send({ message: 'Usuário não encontrado.' });
   }
 
-  const profile = await Profile.findOne({ _id: profileId });
+  const profile = await Profile.findOne({ _id: profileId }).select('+users');
 
   if (!profile) {
     return res
@@ -195,7 +195,11 @@ const setProfile = async (req, res) => {
   }
 
   user.profile = profile;
-  profile.users.push(profile);
+  const has = await Profile.findOne({ users: { _id: userId } });
+
+  if (!has) {
+    profile.users.push(user);
+  }
 
   await user.save();
   await profile.save();
