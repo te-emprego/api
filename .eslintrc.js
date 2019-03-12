@@ -19,5 +19,6 @@ module.exports = {
       'no-underscore-dangle': 'off',
       'prefer-promise-reject-errors': 'off',
       'func-names': 'off',
+      'new-cap': 'off'
     }
 };

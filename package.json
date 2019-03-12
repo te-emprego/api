@@ -21,6 +21,9 @@
     "moment": "^2.24.0",
     "mongoose": "^5.4.19",
     "node-gyp": "^3.8.0",
+    "nodemailer": "^5.1.1",
+    "nodemailer-express-handlebars": "^3.0.0",
+    "nodemailer-sendgrid-transport": "^0.2.0",
     "normalize-port": "^1.0.0"
   },
   "devDependencies": {
