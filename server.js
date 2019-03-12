@@ -6,9 +6,8 @@ const normalize = require('normalize-port');
 const config = require('./src/config');
 const app = require('./src/app');
 
-const mongooseConfig = {
-  useNewUrlParser: true,
-};
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useCreateIndex', true);
 
 const port = normalize(config.port);
 
@@ -28,4 +27,4 @@ const boot = (err) => {
 
 console.clear();
 mongoose
-  .connect(config.db.connectionString, mongooseConfig, boot);
+  .connect(config.db.connectionString, boot);
