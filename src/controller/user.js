@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 const User = require('@model/user');
+const Profile = require('@model/profile');
 const Token = require('@service/token');
 const mailer = require('@service/mailer');
 
@@ -174,9 +175,41 @@ const resetPassword = async (req, res) => {
   }
 };
 
+const setProfile = async (req, res) => {
+  const { userId, profileId } = req.body;
+
+  const user = await User.findOne({ _id: userId });
+
+  if (!user) {
+    return res
+      .status(404)
+      .send({ message: 'Usuário não encontrado.' });
+  }
+
+  const profile = await Profile.findOne({ _id: profileId });
+
+  if (!profile) {
+    return res
+      .status(404)
+      .send({ message: 'Perfil não encontrado.' });
+  }
+
+  user.profile = profile;
+  profile.users.push(profile);
+
+  await user.save();
+  await profile.save();
+
+  res.send({
+    user,
+    message: 'Perfil atualizado com sucesso.',
+  });
+};
+
 module.exports = {
   signUp,
   signIn,
   forgotPassword,
   resetPassword,
+  setProfile,
 };

@@ -6,7 +6,8 @@ router
   .post('/users/signin', user.signIn)
   .post('/users/signup', user.signUp)
   .post('/users/forgot-password', user.forgotPassword)
-  .post('/users/reset-password', user.resetPassword);
+  .post('/users/reset-password', user.resetPassword)
+  .put('/users/profile', user.setProfile);
 
 router
   .post('/profiles', profile.create)
