@@ -1,58 +1,58 @@
-const fs = require('fs')
+const fs = require('fs');
 
 // utils
-const db = () => fs.readFileSync('./data/db.json')
-const parse = string => JSON.parse(string)
-const stringify = string => JSON.stringify(string, null, 2)
-const save = data => fs.writeFileSync(__dirname + '/data/db.json', data)
+const db = () => fs.readFileSync('./data/db.json');
+const parse = string => JSON.parse(string);
+const stringify = string => JSON.stringify(string, null, 2);
+const save = data => fs.writeFileSync(`${__dirname}/data/db.json`, data);
 
 const jsondb = {
-    async find(id){
-        const Users = parse(db())
-        return Users.find(user => user.id == id || user.email == id)
-    },
-    async update(id, newValues){
-        const Users = parse(db())
-        const userIndex = Users.findIndex(user => user.id == id)
-        
-        const newUser = {
-            ...Users[userIndex],
-            ...newValues
-        }
+  async find(id) {
+    const Users = parse(db());
+    return Users.find(user => user.id === id || user.email === id);
+  },
+  async update(id, newValues) {
+    const Users = parse(db());
+    const userIndex = Users.findIndex(user => user.id === id);
 
-        Users[userIndex] = newUser
+    const newUser = {
+      ...Users[userIndex],
+      ...newValues,
+    };
 
-        const stringJson = stringify(Users)
+    Users[userIndex] = newUser;
 
-        save(stringJson)
+    const stringJson = stringify(Users);
 
-        return Users[userIndex]
-    },
-    delete(id){
-        const Users = parse(db())
-        
-        const usersWithoutId = Users.filter(user => user.id != id)
+    save(stringJson);
 
-        const stringJson = stringify(usersWithoutId)
+    return Users[userIndex];
+  },
+  delete(id) {
+    const Users = parse(db());
 
-        save(stringJson)
-    
-        return true
-    },
-    create(user){
-        const Users = parse(db())
+    const usersWithoutId = Users.filter(user => user.id !== id);
 
-        const toSave = {
-            id: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10),
-            ...user
-        }
+    const stringJson = stringify(usersWithoutId);
 
-        Users.push(toSave)
+    save(stringJson);
 
-        save(stringify(Users))
+    return true;
+  },
+  create(user) {
+    const Users = parse(db());
 
-        return toSave
-    },
-}
+    const toSave = {
+      id: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(2, 10),
+      ...user,
+    };
 
-module.exports = jsondb
+    Users.push(toSave);
+
+    save(stringify(Users));
+
+    return toSave;
+  },
+};
+
+module.exports = jsondb;
