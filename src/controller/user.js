@@ -210,10 +210,34 @@ const setProfile = async (req, res) => {
   });
 };
 
+const hasPermission = async (req, res) => {
+  const { token, permission } = req.body;
+
+  Token
+    .decode(token)
+    .then((userId) => {
+      const user = User
+        .findOne({
+          _id: userId,
+          profile: {
+            permissions: permission,
+          },
+        });
+
+      res
+        .send(user || false);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).send({ message: 'Token inválido.' });
+    });
+};
+
 module.exports = {
   signUp,
   signIn,
   forgotPassword,
   resetPassword,
   setProfile,
+  hasPermission,
 };
