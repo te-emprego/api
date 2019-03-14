@@ -254,6 +254,31 @@ const hasPermission = async (req, res) => {
     });
 };
 
+/**
+ * Get user info by token
+ * @param {object} req express request objec
+ * @param {object} res express response object
+ */
+const getUserByToken = async (req, res) => {
+  const { authorization } = req.headers;
+
+  const [, token] = authorization.split(' ');
+
+  Token
+    .decode(token)
+    .then((userId) => {
+      User
+        .findById(userId)
+        .populate('profile')
+        .exec((err, user) => {
+          err
+            ? res.status(500).send({ message: 'Erro interno do servidor. Não foi possível trazer o usuário.' })
+            : res.send(user);
+        });
+    })
+    .catch(err => res.status(err.status).send(err.message));
+};
+
 module.exports = {
   signUp,
   signIn,
@@ -261,4 +286,5 @@ module.exports = {
   resetPassword,
   setProfile,
   hasPermission,
+  getUserByToken,
 };

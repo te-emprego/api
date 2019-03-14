@@ -26,7 +26,7 @@ const decode = token => new Promise((resolve, reject) => {
     resolve(payload.sub);
   } catch (err) {
     reject({
-      status: 500,
+      status: 400,
       message: 'Token inválido.',
     });
   }

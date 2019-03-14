@@ -3,6 +3,7 @@ const user = require('@controller/user');
 const profile = require('@controller/profile');
 
 router
+  .get('/users/me', user.getUserByToken)
   .post('/users/signin', user.signIn)
   .post('/users/signup', user.signUp)
   .post('/users/forgot-password', user.forgotPassword)
