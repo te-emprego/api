@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const user = require('@controller/user');
 const profile = require('@controller/profile');
+const whoAmI = require('@middleware/whoAmI');
 
 router
   .get('/users/me', user.getUserByToken)
@@ -9,7 +10,8 @@ router
   .post('/users/forgot-password', user.forgotPassword)
   .post('/users/reset-password', user.resetPassword)
   .post('/users/has-permission', user.hasPermission)
-  .put('/users/profile', user.setProfile);
+  .put('/users/profile', user.setProfile)
+  .patch('/users/me', whoAmI, user.updateProps);
 
 router
   .post('/profiles', profile.create)

@@ -4,6 +4,33 @@ const User = require('@model/user');
 const Profile = require('@model/profile');
 const Token = require('@service/token');
 const mailer = require('@service/mailer');
+const error = require('@service/error');
+
+const helpers = {
+  decodeToken(bearer) {
+    return new Promise((resolve, reject) => {
+      const [, token] = bearer.split(' ');
+      Token
+        .decode(token)
+        .then(userId => resolve(userId))
+        .catch(err => reject(err));
+    });
+  },
+  getUserInfo(id) {
+    return new Promise((resolve, reject) => {
+      User
+        .findById(id)
+        .populate('profile')
+        .exec((err, user) => {
+          err ? reject(err) : resolve(user);
+        });
+    });
+  },
+  async amITheSource(me, bearer) {
+    const userId = await this.decodeToken(bearer);
+    return userId === me._id;
+  },
+};
 
 /**
  * Create a user and store it on database
@@ -256,7 +283,7 @@ const hasPermission = async (req, res) => {
 
 /**
  * Get user info by token
- * @param {object} req express request objec
+ * @param {object} req express request object
  * @param {object} res express response object
  */
 const getUserByToken = async (req, res) => {
@@ -279,6 +306,42 @@ const getUserByToken = async (req, res) => {
     .catch(err => res.status(err.status).send(err.message));
 };
 
+/**
+ * Update user properties
+ *
+ * @middleware whoAmI
+ * @param {object} req express request object
+ * @param {object} res express response object
+ */
+const updateProps = async (req, res) => {
+  const { user } = req.body;
+  const { me } = req;
+
+  // check if email already exists
+  const exists = await User.findOne({ email: user.email });
+  if (exists) {
+    return error({
+      res,
+      status: 400,
+      payload: 'O email informado já está cadastrado no sistema.',
+    });
+  }
+
+  User
+    .findOneAndUpdate({ _id: me._id }, {
+      $set: {
+        ...user,
+      },
+    }, { new: true })
+    .exec((err, newUser) => {
+      if (err) {
+        console.log(err);
+        return error({ res });
+      }
+      res.send({ newUser });
+    });
+};
+
 module.exports = {
   signUp,
   signIn,
@@ -287,4 +350,6 @@ module.exports = {
   setProfile,
   hasPermission,
   getUserByToken,
+  updateProps,
+  helpers,
 };
