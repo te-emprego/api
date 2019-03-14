@@ -22,7 +22,12 @@ const whoAmI = async (req, res, next) => {
     req.me = user;
     next();
   } catch (err) {
-    error({ res, log: err });
+    error({
+      res,
+      status: err.status,
+      payload: err.message,
+      log: err,
+    });
   }
 };
 

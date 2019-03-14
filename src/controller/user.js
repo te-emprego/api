@@ -26,6 +26,9 @@ const helpers = {
         });
     });
   },
+  isAdmin(user) {
+    return user.profile.permissions.includes('admin');
+  },
   async amITheSource(me, bearer) {
     const userId = await this.decodeToken(bearer);
     return userId === me._id;
@@ -219,17 +222,21 @@ const resetPassword = async (req, res) => {
  * @param {object} res express resposnse object
  */
 const setProfile = async (req, res) => {
+  const { me } = req;
   const { userId, profileId } = req.body;
 
-  const user = await User.findOne({ _id: userId });
+  const user = await helpers.getUserInfo(userId);
+  const profile = await Profile
+    .findOne({ _id: profileId })
+    .select('+users');
 
-  if (!user) {
-    return res
-      .status(404)
-      .send({ message: 'Usuário não encontrado.' });
+  if (!helpers.isAdmin(me)) {
+    return error({
+      res,
+      status: 401,
+      payload: 'Você não tem permissão para fazer isso.',
+    });
   }
-
-  const profile = await Profile.findOne({ _id: profileId }).select('+users');
 
   if (!profile) {
     return res
@@ -238,8 +245,8 @@ const setProfile = async (req, res) => {
   }
 
   user.profile = profile;
-  const has = await Profile.findOne({ users: { _id: userId } });
 
+  const has = await Profile.findOne({ users: { _id: userId } });
   if (!has) {
     profile.users.push(user);
   }
