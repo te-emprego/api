@@ -17,6 +17,7 @@
     "express": "^4.16.4",
     "jsonwebtoken": "^8.4.0",
     "jwt-simple": "^0.5.5",
+    "lodash": "^4.17.11",
     "module-alias": "^2.2.0",
     "moment": "^2.24.0",
     "mongoose": "^5.4.19",
