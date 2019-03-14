@@ -20,6 +20,7 @@ module.exports = {
       'prefer-promise-reject-errors': 'off',
       'func-names': 'off',
       'new-cap': 'off',
-      'no-shadow': 'off'
+      'no-shadow': 'off',
+      'no-unused-expressions': 'off'
     }
 };

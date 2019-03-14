@@ -210,22 +210,27 @@ const setProfile = async (req, res) => {
   });
 };
 
+/**
+ * Verify if token is valido and say if user profile contains
+ * the requested permission
+ *
+ * @param {object} req express request object
+ * @param {object} res express response object
+ */
 const hasPermission = async (req, res) => {
   const { token, permission } = req.body;
 
   Token
     .decode(token)
     .then((userId) => {
-      const user = User
-        .findOne({
-          _id: userId,
-          profile: {
-            permissions: permission,
-          },
+      User
+        .findOne({ _id: userId })
+        .populate('profile')
+        .exec((err, user) => {
+          user.profile.permissions.includes(permission)
+            ? res.send(user)
+            : res.status(401).send({ message: 'Não tem permissão' });
         });
-
-      res
-        .send(user || false);
     })
     .catch((err) => {
       console.log(err);
