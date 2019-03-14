@@ -82,6 +82,11 @@ const signIn = async (req, res) => {
     });
 };
 
+/**
+ * Sends a mail to user with the password reset token
+ * @param {object} req express request object
+ * @param {object} res express response object
+ */
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
 
@@ -134,6 +139,11 @@ const forgotPassword = async (req, res) => {
   }
 };
 
+/**
+ * Sets a new password to user
+ * @param {object} req express request object
+ * @param {object} res express response object
+ */
 const resetPassword = async (req, res) => {
   const { email, token, password } = req.body;
 
@@ -175,6 +185,12 @@ const resetPassword = async (req, res) => {
   }
 };
 
+/**
+ * Sets a profile in user info
+ *
+ * @param {object} req express request object
+ * @param {object} res express resposnse object
+ */
 const setProfile = async (req, res) => {
   const { userId, profileId } = req.body;
 
@@ -211,8 +227,8 @@ const setProfile = async (req, res) => {
 };
 
 /**
- * Verify if token is valido and say if user profile contains
- * the requested permission
+ * Verify if token is valid and if the inner
+ * profile contains the requested permission
  *
  * @param {object} req express request object
  * @param {object} res express response object
