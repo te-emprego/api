@@ -27,7 +27,7 @@ const UserSchema = new Schema({
   },
   contact: {
     phones: [String],
-    // The above model follows the viacep api: https://viacep.com.br/
+    // The bellow model follows the viacep api: https://viacep.com.br/
     address: {
       cep: String,
       logradouro: String,
