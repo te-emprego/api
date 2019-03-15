@@ -25,6 +25,22 @@ const UserSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'profile',
   },
+  contact: {
+    phones: [String],
+    // The above model follows the viacep api: https://viacep.com.br/
+    address: {
+      cep: String,
+      logradouro: String,
+      bairro: String,
+      complemento: String,
+      localidade: String,
+      uf: String,
+      unidade: String,
+      ibge: String,
+      gia: String,
+      numero: { type: Schema.Types.Mixed },
+    },
+  },
   createdAt: {
     type: Date,
     default: Date.now,
