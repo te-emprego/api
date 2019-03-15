@@ -4,16 +4,10 @@ const error = require('@service/error');
 const _ = require('lodash');
 
 const create = async (req, res) => {
-  const {
-    title,
-    description,
-    salary,
-    active,
-  } = req.body;
-
+  const { job } = req.body;
   const { me } = req;
 
-  const categoryId = req.body.category;
+  const categoryId = req.body.job.category;
   const category = await Category.findById(categoryId).select('+jobs');
 
   if (!category) {
@@ -24,26 +18,19 @@ const create = async (req, res) => {
     });
   }
 
-  console.log(me);
-
   const slug = String(me._id)
     .slice(0, 10)
-    .concat(`-${_.snakeCase(title)}`);
+    .concat(`-${_.snakeCase(job.title)}`);
 
-  const job = new Job({
-    title,
-    description,
-    salary,
-    slug,
-    active,
-  });
+  const newJob = new Job(job);
 
-  job.category = category;
-  job.author = me;
-  category.jobs.push(job);
+  newJob.category = category;
+  newJob.slug = slug;
+  newJob.author = me;
+  category.jobs.push(newJob);
 
   try {
-    await job.save();
+    await newJob.save();
     await category.save();
 
     res
@@ -59,7 +46,7 @@ const create = async (req, res) => {
 };
 
 const read = async (req, res) => {
-  const jobs = await Job.find();
+  const jobs = await Job.find().populate('author');
   res.send(jobs);
 };
 
