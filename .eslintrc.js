@@ -21,6 +21,7 @@ module.exports = {
       'func-names': 'off',
       'new-cap': 'off',
       'no-shadow': 'off',
-      'no-unused-expressions': 'off'
+      'no-unused-expressions': 'off',
+      'no-return-assign': "off"
     }
 };

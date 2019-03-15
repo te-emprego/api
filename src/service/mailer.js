@@ -2,10 +2,11 @@ const path = require('path');
 const nodemailer = require('nodemailer');
 const hbs = require('nodemailer-express-handlebars');
 const sgTransport = require('nodemailer-sendgrid-transport');
+const config = require('@config');
 
 const options = {
   auth: {
-    api_key: process.env.SENDGRID_API,
+    api_key: config.mail.sendgrid,
   },
 };
 

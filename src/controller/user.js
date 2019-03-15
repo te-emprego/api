@@ -135,7 +135,7 @@ const forgotPassword = async (req, res) => {
     const now = new Date();
     now.setHours(now.getHours() + 1);
 
-    await User.findByIdAndUpdate(user.id, {
+    await User.findOneAndUpdate({ _id: user.id }, {
       $set: {
         passwordResetToken: token,
         passwordResetExpires: now,
@@ -150,8 +150,8 @@ const forgotPassword = async (req, res) => {
       template: 'mail',
       context: { token, name: user.name },
     }, (err) => {
-      console.log(err);
       if (err) {
+        console.log(err);
         return res
           .status(400)
           .send({
