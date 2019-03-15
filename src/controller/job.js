@@ -37,7 +37,7 @@ const create = async (req, res) => {
       .status(201)
       .send({
         message: 'Anúncio criado com sucesso',
-        job,
+        newJob,
       });
   } catch (err) {
     console.log(err);
