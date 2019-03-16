@@ -5,6 +5,7 @@ const Profile = require('@model/profile');
 const Token = require('@service/token');
 const mailer = require('@service/mailer');
 const error = require('@service/error');
+const imgur = require('imgur');
 
 const helpers = {
   decodeToken(bearer) {
@@ -349,6 +350,22 @@ const updateProps = async (req, res) => {
     });
 };
 
+const uploadProfilePicture = (req, res) => {
+  console.log(req.files);
+  return res.send(req.files);
+
+  imgur
+    .uploadFile(imgPath)
+    .then((json) => {
+      console.log(json);
+      res.send(json);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).send();
+    });
+};
+
 module.exports = {
   signUp,
   signIn,
@@ -359,4 +376,5 @@ module.exports = {
   getUserByToken,
   updateProps,
   helpers,
+  uploadProfilePicture,
 };

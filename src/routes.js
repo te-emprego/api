@@ -12,6 +12,7 @@ router
   .post('/users/signup', user.signUp)
   .post('/users/forgot-password', user.forgotPassword)
   .post('/users/reset-password', user.resetPassword)
+  .post('/users/me/avatar', user.uploadProfilePicture)
   .post('/users/has-permission', whoAmI, allowedOnly('users/read'), user.hasPermission)
   .put('/users/profile', whoAmI, allowedOnly('users/update'), user.setProfile)
   .patch('/users/me', whoAmI, allowedOnly('users/update'), user.updateProps);
