@@ -5,6 +5,7 @@ const Profile = require('@model/profile');
 const Token = require('@service/token');
 const mailer = require('@service/mailer');
 const error = require('@service/error');
+const logger = require('@service/logger');
 const imgur = require('imgur');
 const rimraf = require('rimraf');
 
@@ -47,6 +48,7 @@ const helpers = {
  */
 const signUp = async (req, res) => {
   if (await User.findOne({ email: req.body.email })) {
+    logger.error(`Tentativa de criar uma conta duplicada para o email: ${req.body.email}`);
     return res
       .status(400)
       .send({ message: 'Este email já foi cadastrado.' });
@@ -72,6 +74,7 @@ const signUp = async (req, res) => {
 
   user.save((err) => {
     if (err) {
+      logger.error(`Houve um erro ao criar o usuário ${user.email}`);
       return res
         .status(500)
         .send({ message: 'Erro ao criar usuário.', error: err });
@@ -98,6 +101,7 @@ const signUp = async (req, res) => {
           });
       }
 
+      logger.info(`Usuário criado: ${user.email}`);
       res
         .status(201)
         .send({
