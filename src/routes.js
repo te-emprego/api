@@ -5,6 +5,7 @@ const category = require('@controller/category');
 const job = require('@controller/job');
 const whoAmI = require('@middleware/whoAmI');
 const allowedOnly = require('@middleware/allowedOnly');
+const multiparty = require('connect-multiparty')();
 
 router
   .get('/users/me', user.getUserByToken)
@@ -12,7 +13,7 @@ router
   .post('/users/signup', user.signUp)
   .post('/users/forgot-password', user.forgotPassword)
   .post('/users/reset-password', user.resetPassword)
-  .post('/users/me/avatar', user.uploadProfilePicture)
+  .post('/users/me/avatar', whoAmI, multiparty, user.uploadProfilePicture)
   .post('/users/has-permission', whoAmI, allowedOnly('users/read'), user.hasPermission)
   .put('/users/profile', whoAmI, allowedOnly('users/update'), user.setProfile)
   .patch('/users/me', whoAmI, allowedOnly('users/update'), user.updateProps);

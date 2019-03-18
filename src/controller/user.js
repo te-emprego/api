@@ -350,15 +350,23 @@ const updateProps = async (req, res) => {
     });
 };
 
-const uploadProfilePicture = (req, res) => {
-  console.log(req.files);
-  return res.send(req.files);
-
+const uploadProfilePicture = async (req, res) => {
   imgur
-    .uploadFile(imgPath)
-    .then((json) => {
-      console.log(json);
-      res.send(json);
+    .uploadFile(req.files.avatar.path)
+    .then(async (json) => {
+      const { link } = json.data;
+      const { me } = req;
+
+      const user = await User.findOne({ _id: me._id });
+      user.avatar = link;
+      user.save();
+
+      return res
+        .status(200)
+        .send({
+          user,
+          message: 'Avatar salvo com sucesso.',
+        });
     })
     .catch((err) => {
       console.log(err);
