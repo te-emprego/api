@@ -6,6 +6,7 @@ const Token = require('@service/token');
 const mailer = require('@service/mailer');
 const error = require('@service/error');
 const imgur = require('imgur');
+const rimraf = require('rimraf');
 
 const helpers = {
   decodeToken(bearer) {
@@ -33,6 +34,9 @@ const helpers = {
   async amITheSource(me, bearer) {
     const userId = await this.decodeToken(bearer);
     return userId === me._id;
+  },
+  unlink(filePath) {
+    rimraf.sync(filePath);
   },
 };
 
@@ -366,6 +370,8 @@ const uploadProfilePicture = async (req, res) => {
       const user = await User.findOne({ _id: me._id });
       user.avatar = link;
       user.save();
+
+      helpers.unlink(avatar.path);
 
       return res
         .status(200)

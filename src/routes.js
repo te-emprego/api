@@ -5,7 +5,9 @@ const category = require('@controller/category');
 const job = require('@controller/job');
 const whoAmI = require('@middleware/whoAmI');
 const allowedOnly = require('@middleware/allowedOnly');
-const multiparty = require('connect-multiparty')();
+const multiparty = require('connect-multiparty')({
+  uploadDir: 'temp',
+});
 
 router
   .get('/users/me', user.getUserByToken)

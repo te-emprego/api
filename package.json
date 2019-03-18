@@ -29,7 +29,8 @@
     "nodemailer": "^5.1.1",
     "nodemailer-express-handlebars": "^3.0.0",
     "nodemailer-sendgrid-transport": "^0.2.0",
-    "normalize-port": "^1.0.0"
+    "normalize-port": "^1.0.0",
+    "rimraf": "^2.6.3"
   },
   "devDependencies": {
     "eslint": "^5.15.1",
