@@ -351,8 +351,14 @@ const updateProps = async (req, res) => {
 };
 
 const uploadProfilePicture = async (req, res) => {
+  const { avatar } = req.files;
+  if (avatar.size > 100000) {
+    return res
+      .status(400)
+      .send({ message: 'A imagem não pode ter mais que 1Mb' });
+  }
   imgur
-    .uploadFile(req.files.avatar.path)
+    .uploadFile(avatar.path)
     .then(async (json) => {
       const { link } = json.data;
       const { me } = req;
