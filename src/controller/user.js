@@ -81,7 +81,7 @@ const signUp = async (req, res) => {
       to: email,
       from: 'no-reply@teemprego.com.br',
       subject: 'Bem vindo',
-      template: 'welcome/index',
+      template: 'bem-vindo',
       context: {
         name: user.name,
         email: user.email,
@@ -175,7 +175,7 @@ const forgotPassword = async (req, res) => {
       to: email,
       from: 'no-reply@teemprego.com.br',
       subject: 'Recuperar senha',
-      template: 'recuperar-senha/index',
+      template: 'recuperar-senha',
       context: { token, name: user.name, email: user.email },
     }, (err) => {
       if (err) {
