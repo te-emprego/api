@@ -76,13 +76,36 @@ const signUp = async (req, res) => {
         .status(500)
         .send({ message: 'Erro ao criar usuário.', error: err });
     }
-    res
-      .status(201)
-      .send({
-        user,
-        message: 'Usuário salvo com sucesso',
-        token: Token.create(user),
-      });
+
+    mailer.sendgrid.sendMail({
+      to: email,
+      from: 'no-reply@teemprego.com.br',
+      subject: 'Bem vindo',
+      template: 'welcome/index',
+      context: {
+        name: user.name,
+        email: user.email,
+        appBase: 'http://localhost:3000',
+        imagesBase: 'https://teemprego.com.br/content/mail',
+      },
+    }, (err) => {
+      if (err) {
+        console.log(err);
+        return res
+          .status(400)
+          .send({
+            message: 'Erro ao enviar email para recuperação de senha.',
+          });
+      }
+
+      res
+        .status(201)
+        .send({
+          user,
+          message: 'Conta criada com sucesso.',
+          token: Token.create(user),
+        });
+    });
   });
 };
 
@@ -152,8 +175,8 @@ const forgotPassword = async (req, res) => {
       to: email,
       from: 'no-reply@teemprego.com.br',
       subject: 'Recuperar senha',
-      template: 'mail',
-      context: { token, name: user.name },
+      template: 'recuperar-senha/index',
+      context: { token, name: user.name, email: user.email },
     }, (err) => {
       if (err) {
         console.log(err);

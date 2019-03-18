@@ -14,13 +14,12 @@ const sendgrid = new nodemailer.createTransport(sgTransport(options));
 
 sendgrid.use('compile', hbs({
   viewEngine: {
-    extName: '.html',
+    extName: '.hbs',
     partialsDir: 'src/view',
     layoutsDir: 'src/view',
-    defaultLayout: 'mail.html',
   },
   viewPath: path.resolve('./src/view/'),
-  extName: '.html',
+  extName: '.hbs',
 }));
 
 module.exports = {
