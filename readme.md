@@ -1,7 +1,8 @@
 ![Te Emprego API](https://i.imgur.com/WLg3n6g.png)
 
-![](https://img.shields.io/david/xphub/te-emprego-api.svg?style=flat-square&logo=npm&color=561EBB)
-![](https://img.shields.io/github/languages/code-size/xphub/te-emprego-api.svg?style=flat-square&logo=javascript&color=561EBB)
+![](https://img.shields.io/david/xphub/te-emprego-api.svg?style=flat-square&logo=npm&color=561EBB&labelColor=222222)
+![](https://img.shields.io/github/languages/code-size/xphub/te-emprego-api.svg?style=flat-square&logo=javascript&color=561EBB&labelColor=222222)
+![](https://img.shields.io/github/followers/danielbonifacio.svg?label=Follow&style=social)
 
 API Oficial do [teemprego.com.br](https://teemprego.com.br).
 
