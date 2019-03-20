@@ -46,6 +46,7 @@
     "@controller": "src/controller",
     "@config": "src/config",
     "@service": "src/service",
-    "@middleware": "src/middleware"
+    "@middleware": "src/middleware",
+    "@store": "store/index.js"
   }
 }
