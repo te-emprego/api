@@ -18,7 +18,7 @@ const info = chalk.yellow('api@beta\t\t\t\t  @danielbonifacio');
 
 const boot = (err) => {
   if (err) {
-    return console.log('Erro ao se conectar com o banco de dados.', err);
+    throw new Error('Erro ao se conectar com o banco de dados.', err);
   }
 
   app.listen(port, (appError) => {
@@ -31,5 +31,10 @@ const boot = (err) => {
 };
 
 console.clear();
+if (!config.db.connectionString) {
+  console.log('Connection String não encontrada.');
+  console.log(chalk.yellow('Você já criou seu arquivo .env?\n'));
+  return;
+}
 mongoose
   .connect(config.db.connectionString, boot);
