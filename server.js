@@ -31,10 +31,10 @@ const boot = (err) => {
 };
 
 console.clear();
-if (!config.db.connectionString) {
+if (config.db.connectionString) {
+  mongoose
+    .connect(config.db.connectionString, boot);
+} else {
   console.log('Connection String não encontrada.');
   console.log(chalk.yellow('Você já criou seu arquivo .env?\n'));
-  return;
 }
-mongoose
-  .connect(config.db.connectionString, boot);
