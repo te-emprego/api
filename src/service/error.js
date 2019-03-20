@@ -6,6 +6,7 @@
  * @param {string|object} payload response error payload
  * @param {Error} log error object to log
  */
+const logger = require('@service/logger');
 
 const error = ({ res, status, payload, log }) => {
   let response = {};
@@ -13,7 +14,7 @@ const error = ({ res, status, payload, log }) => {
     ? response.message = payload || 'Erro interno do servidor.'
     : response = payload;
 
-  (log && console.log(log));
+  (log && logger(log));
 
   return res
     .status(status || 500)

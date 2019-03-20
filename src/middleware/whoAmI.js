@@ -1,5 +1,7 @@
 const { helpers } = require('@controller/user');
 const error = require('@service/error');
+const logger = require('@service/logger');
+
 /**
  * Adds user info in the request object
  * @param {object} req express request object
@@ -22,7 +24,7 @@ const whoAmI = async (req, res, next) => {
     req.me = user;
     next();
   } catch (err) {
-    console.log(err);
+    logger.error(err.message || err);
     error({
       res,
       status: err.status,
