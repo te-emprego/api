@@ -1,4 +1,4 @@
-# Te Emprego API
+![Te Emprego API](https://i.imgur.com/WLg3n6g.png)
 
 API Oficial do [teemprego.com.br](https://teemprego.com.br).
 
