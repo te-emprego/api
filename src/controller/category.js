@@ -14,7 +14,8 @@ const create = async (req, res) => {
 
   await category.save((err, category) => {
     if (err) {
-      logger.error(err.message || err, { key: E_CODE });
+      logger
+        .error(err.message || err, { key: E_CODE, date: Date.now() });
       return res
         .status(500)
         .send({
@@ -32,9 +33,24 @@ const create = async (req, res) => {
   });
 };
 
+/**
+ * Lists all categories available
+ * @param {object} req express request object
+ * @param {object} res express response object
+ */
 const read = async (req, res) => {
-  const categories = await Category.find();
-  res.send(categories);
+  const E_CODE = 'E10002';
+  try {
+    const categories = await Category.find();
+    res.send(categories);
+  } catch (err) {
+    res
+      .status(500)
+      .send({
+        message: 'Erro interno no servidor.',
+        code: E_CODE,
+      });
+  }
 };
 
 module.exports = {
