@@ -35,6 +35,7 @@ const create = async (req, res) => {
 
 /**
  * Lists all categories available
+ * @error E10002
  * @param {object} req express request object
  * @param {object} res express response object
  */
