@@ -1,7 +1,7 @@
 /* eslint-disable object-curly-newline */
 /**
  * Error handler
- * @param {object} res express response object
+ * @param {Response} req express request object
  * @param {number} status response status number
  * @param {string|object} payload response error payload
  * @param {Error} log error object to log

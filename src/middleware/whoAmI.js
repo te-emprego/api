@@ -4,8 +4,8 @@ const logger = require('@service/logger');
 
 /**
  * Adds user info in the request object
- * @param {object} req express request object
- * @param {object} res express response object
+ * @param {Request} req express request object
+ * @param {Response} req express request object
  */
 const whoAmI = async (req, res, next) => {
   const { authorization } = req.headers;
