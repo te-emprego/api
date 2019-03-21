@@ -21,7 +21,6 @@
     "imgur": "^0.3.1",
     "jsonwebtoken": "^8.4.0",
     "jwt-simple": "^0.5.5",
-    "lodash": "^4.17.11",
     "module-alias": "^2.2.0",
     "moment": "^2.24.0",
     "mongoose": "^5.4.19",
@@ -38,6 +37,8 @@
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-prettier": "^3.0.1",
+    "handlebars": "^4.1.1",
+    "lodash": "^4.17.11",
     "nodemon": "^1.18.10"
   },
   "_moduleAliases": {
