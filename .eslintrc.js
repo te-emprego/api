@@ -23,6 +23,7 @@ module.exports = {
       'no-shadow': 'off',
       'no-unused-expressions': 'off',
       'no-return-assign': 'off',
-      'linebreak-style': 'off'
+      'linebreak-style': 'off',
+      'import/no-extraneous-dependencies': 'off'
     }
 };

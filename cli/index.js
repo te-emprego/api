@@ -5,8 +5,8 @@ switch (commands[0]) {
   case 'make:module':
     make.module(commands[1]);
     break;
-  
-  case 'make:controller': 
+
+  case 'make:controller':
     make.maker('controller', commands[1]);
     break;
 
@@ -16,5 +16,9 @@ switch (commands[0]) {
 
   case 'generate:env':
     make.env();
+    break;
+
+  default:
+    console.log('Comando inexistente.');
     break;
 }

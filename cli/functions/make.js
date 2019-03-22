@@ -1,10 +1,9 @@
-const handlebars = require('handlebars');
-const templates = require('../templates');
-const paths = require('../functions/paths');
 const path = require('path');
 const _ = require('lodash');
 const fs = require('fs');
 const chalk = require('chalk');
+const paths = require('../functions/paths');
+const templates = require('../templates');
 
 const make = {
   maker(type, name) {
@@ -13,15 +12,15 @@ const make = {
       model: _.camelCase(name),
     };
     const tpl = templates[type](data);
-    const p = paths[type + 's'];
+    const p = paths[`${type}s`];
 
     try {
-      fs.writeFileSync(path.resolve(p, data.model + '.js'), tpl)
+      fs.writeFileSync(path.resolve(p, `${data.model}.js`), tpl);
     } catch (err) {
       console.log(`Erro ao criar o model ${name}.`, err);
     }
   },
-  
+
   module(name) {
     this.maker('model', name);
     this.maker('controller', name);
@@ -34,22 +33,21 @@ const make = {
     const tpl = templates.env();
 
     const exists = fs.existsSync(path.resolve(p, '.env'));
-    
+
     if (exists) {
       const error = chalk.yellow('O Arquivo .env já existe.');
       return console.log(error);
     }
-
 
     try {
       fs.writeFileSync(path.resolve(p, '.env'), tpl);
       const success = chalk.green('Arquivo .env gerado com sucesso.');
       console.log(success);
     } catch (err) {
-      console.log(`Erro ao criar o model ${name}.`, err);
+      const error = chalk.red('Erro ao criar o arquivo .env');
+      console.log(error, err);
     }
-
   },
-}
+};
 
 module.exports = make;
