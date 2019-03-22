@@ -67,6 +67,12 @@ const UserSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  new_email: {
+    type: String,
+  },
+  new_email_confirmation_token: {
+    type: String,
+  },
 });
 
 UserSchema.pre('save', async function (next) {
