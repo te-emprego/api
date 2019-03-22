@@ -29,4 +29,6 @@ MONGO_DB=
 SENDGRID_API=
 ```
 
+Você também pode gerar um arquivo `.env` com o comando `node lummi generate:env`.
+
 Este repositório está sob a [licença GNU GLP v3](https://www.gnu.org/licenses/gpl-3.0.pt-br.html)

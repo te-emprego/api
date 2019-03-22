@@ -43,8 +43,8 @@ const helpers = {
 
 /**
  * Create a user and store it on database
- * @param {object} req express request object
- * @param {object} res express response object
+ * @param {Request} req express request object
+ * @param {Response} req express request object
  */
 const signUp = async (req, res) => {
   if (await User.findOne({ email: req.body.email })) {
@@ -115,8 +115,8 @@ const signUp = async (req, res) => {
 
 /**
  * Generate a token based on user credentials
- * @param {object} req express request object
- * @param {object} res express response object
+ * @param {Request} req express request object
+ * @param {Response} req express request object
  */
 const signIn = async (req, res) => {
   const { email, password } = req.body;
@@ -146,8 +146,8 @@ const signIn = async (req, res) => {
 
 /**
  * Sends a mail to user with the password reset token
- * @param {object} req express request object
- * @param {object} res express response object
+ * @param {Request} req express request object
+ * @param {Response} req express request object
  */
 const forgotPassword = async (req, res) => {
   const { email } = req.body;
@@ -203,8 +203,8 @@ const forgotPassword = async (req, res) => {
 
 /**
  * Sets a new password to user
- * @param {object} req express request object
- * @param {object} res express response object
+ * @param {Request} req express request object
+ * @param {Response} req express request object
  */
 const resetPassword = async (req, res) => {
   const { email, token, password } = req.body;
@@ -250,7 +250,7 @@ const resetPassword = async (req, res) => {
 /**
  * Sets a profile in user info
  *
- * @param {object} req express request object
+ * @param {Request} req express request object
  * @param {object} res express resposnse object
  */
 const setProfile = async (req, res) => {
@@ -296,8 +296,8 @@ const setProfile = async (req, res) => {
  * Verify if token is valid and if the inner
  * profile contains the requested permission
  *
- * @param {object} req express request object
- * @param {object} res express response object
+ * @param {Request} req express request object
+ * @param {Response} req express request object
  */
 const hasPermission = async (req, res) => {
   const { token, permission } = req.body;
@@ -322,8 +322,8 @@ const hasPermission = async (req, res) => {
 
 /**
  * Get user info by token
- * @param {object} req express request object
- * @param {object} res express response object
+ * @param {Request} req express request object
+ * @param {Response} req express request object
  */
 const getUserByToken = async (req, res) => {
   const { authorization } = req.headers;
@@ -349,8 +349,8 @@ const getUserByToken = async (req, res) => {
  * Update user properties
  *
  * @middleware whoAmI
- * @param {object} req express request object
- * @param {object} res express response object
+ * @param {Request} req express request object
+ * @param {Response} req express request object
  */
 const updateProps = async (req, res) => {
   const { user } = req.body;
