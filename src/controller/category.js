@@ -2,10 +2,10 @@ const Category = require('@model/category');
 const logger = require('@service/logger');
 
 /**
- * Creates a new version
+ * Adds a new category
  * @error E10001
  * @param {Request} req express request object
- * @param {Response} req express request object
+ * @param {Response} res express response object
  */
 const create = async (req, res) => {
   const E_CODE = 'E10001';
@@ -34,10 +34,10 @@ const create = async (req, res) => {
 };
 
 /**
- * Lists all categories available
+ * Lists all available categories
  * @error E10002
- * @param {object} req express request object
- * @param {object} res express response object
+ * @param {Request} req express request object
+ * @param {Response} res express response object
  */
 const read = async (req, res) => {
   const E_CODE = 'E10002';

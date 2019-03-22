@@ -3,7 +3,14 @@ const Category = require('@model/category');
 const error = require('@service/error');
 const _ = require('lodash');
 
+/**
+ * Add a new Job
+ * @error E11001
+ * @param {Request} req express request object
+ * @param {Response} res express response object
+ */
 const create = async (req, res) => {
+  const E_CODE = 'E11001';
   const { job } = req.body;
   const { me } = req;
 
@@ -45,9 +52,27 @@ const create = async (req, res) => {
   }
 };
 
+/**
+ * Lists all available jobs
+ * @error E11002
+ * @param {Request} req expres request object
+ * @param {Response} res express response object
+ */
 const read = async (req, res) => {
-  const jobs = await Job.find().populate('author');
-  res.send(jobs);
+  const E_CODE = 'E11002';
+  try {
+    const jobs = await Job
+      .find()
+      .populate('author');
+    res.send(jobs);
+  } catch (err) {
+    res
+      .status(500)
+      .send({
+        message: 'Erro interno do servidor',
+        code: E_CODE,
+      });
+  }
 };
 
 module.exports = {
