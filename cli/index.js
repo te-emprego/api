@@ -1,17 +1,19 @@
 const commands = process.argv.slice(2);
 const make = require('./functions/make');
 
-switch (commands[0]) {
+const [command, name] = commands;
+
+switch (command) {
   case 'make:module':
-    make.module(commands[1]);
+    make.module(name);
     break;
 
   case 'make:controller':
-    make.maker('controller', commands[1]);
+    make.maker('controller', name);
     break;
 
   case 'make:model':
-    make.maker('model', commands[1]);
+    make.maker('model', name);
     break;
 
   case 'generate:env':
