@@ -18,7 +18,8 @@ router
   .post('/users/me/avatar', whoAmI, multiparty, user.uploadProfilePicture)
   .post('/users/has-permission', whoAmI, allowedOnly('users/read'), user.hasPermission)
   .put('/users/profile', whoAmI, allowedOnly('users/update'), user.setProfile)
-  .patch('/users/me', whoAmI, allowedOnly('users/update'), user.updateProps);
+  .patch('/users/me', whoAmI, allowedOnly('users/update'), user.updateProps)
+  .get('/confirm-account', user.confirmEmail);
 
 router
   .post('/profiles', whoAmI, allowedOnly('admin'), profile.create)
