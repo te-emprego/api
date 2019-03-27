@@ -9,45 +9,45 @@ const logger = require('@service/logger');
 const imgur = require('imgur');
 const rimraf = require('rimraf');
 
-const helpers = {
-  decodeToken(bearer) {
-    return new Promise((resolve, reject) => {
-      const [, token] = bearer.split(' ');
-      Token
-        .decode(token)
-        .then(userId => resolve(userId))
-        .catch(err => reject(err));
-    });
-  },
-  getUserInfo(id) {
-    return new Promise((resolve, reject) => {
-      User
-        .findById(id)
-        .populate('profile')
-        .exec((err, user) => {
-          err ? reject(err) : resolve(user);
-        });
-    });
-  },
-  isAdmin(user) {
-    return user.profile.permissions.includes('admin');
-  },
-  async amITheSource(me, bearer) {
-    const userId = await this.decodeToken(bearer);
-    return userId === me._id;
-  },
-  unlink(filePath) {
-    rimraf.sync(filePath);
-  },
-};
-
 const UserController = {
+  helpers: {
+    decodeToken(bearer) {
+      return new Promise((resolve, reject) => {
+        const [, token] = bearer.split(' ');
+        Token
+          .decode(token)
+          .then(userId => resolve(userId))
+          .catch(err => reject(err));
+      });
+    },
+    getUserInfo(id) {
+      return new Promise((resolve, reject) => {
+        User
+          .findById(id)
+          .populate('profile')
+          .exec((err, user) => {
+            err ? reject(err) : resolve(user);
+          });
+      });
+    },
+    isAdmin(user) {
+      return user.profile.permissions.includes('admin');
+    },
+    async amITheSource(me, bearer) {
+      const userId = await this.decodeToken(bearer);
+      return userId === me._id;
+    },
+    unlink(filePath) {
+      rimraf.sync(filePath);
+    },
+  },
+
   /**
    * Create a user and store it on database
    * @param {Request} req express request object
    * @param {Response} req express request object
    */
-  signUp: async (req, res) => {
+  async signUp(req, res) {
     if (await User.findOne({ email: req.body.email })) {
       logger.error(`Tentativa de criar uma conta duplicada para o email: ${req.body.email}`);
       return res
@@ -127,7 +127,7 @@ const UserController = {
  * @param {Request} req express request object
  * @param {Response} req express request object
  */
-  signIn: async (req, res) => {
+  async signIn(req, res) {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email }).select('+password');
@@ -158,7 +158,7 @@ const UserController = {
    * @param {Request} req express request object
    * @param {Response} req express request object
    */
-  forgotPassword: async (req, res) => {
+  async forgotPassword(req, res) {
     const { email } = req.body;
 
     try {
@@ -215,7 +215,7 @@ const UserController = {
    * @param {Request} req express request object
    * @param {Response} req express request object
    */
-  resetPassword: async (req, res) => {
+  async resetPassword(req, res) {
     const { email, token, password } = req.body;
 
     try {
@@ -262,16 +262,16 @@ const UserController = {
    * @param {Request} req express request object
    * @param {object} res express resposnse object
    */
-  setProfile: async (req, res) => {
+  async setProfile(req, res) {
     const { me } = req;
     const { userId, profileId } = req.body;
 
-    const user = await helpers.getUserInfo(userId);
+    const user = await this.helpers.getUserInfo(userId);
     const profile = await Profile
       .findOne({ _id: profileId })
       .select('+users');
 
-    if (!helpers.isAdmin(me)) {
+    if (!this.helpers.isAdmin(me)) {
       return error({
         res,
         status: 401,
@@ -307,7 +307,7 @@ const UserController = {
    * @param {Request} req express request object
    * @param {Response} req express request object
    */
-  hasPermission: async (req, res) => {
+  async hasPermission(req, res) {
     const { token, permission } = req.body;
 
     Token
@@ -333,7 +333,7 @@ const UserController = {
    * @param {Request} req express request object
    * @param {Response} req express request object
    */
-  getUserByToken: async (req, res) => {
+  async getUserByToken(req, res) {
     const { authorization } = req.headers;
 
     const [, token] = authorization.split(' ');
@@ -359,7 +359,7 @@ const UserController = {
    * @param {Request} req express request object
    * @param {Response} req express request object
    */
-  updateProps: async (req, res) => {
+  async updateProps(req, res) {
     const { user } = req.body;
     const { me } = req;
 
@@ -388,7 +388,7 @@ const UserController = {
    * @param {Request} req express request object
    * @param {Response} res express response object
    */
-  uploadProfilePicture: async (req, res) => {
+  async uploadProfilePicture(req, res) {
     const { avatar } = req.files;
     if (avatar.size > 100000) {
       return res
@@ -405,7 +405,7 @@ const UserController = {
         user.avatar = link;
         user.save();
 
-        helpers.unlink(avatar.path);
+        this.helpers.unlink(avatar.path);
 
         return res
           .status(200)
@@ -425,7 +425,7 @@ const UserController = {
    * @param {Request} req express request object
    * @param {Response} res express response object
    */
-  confirmEmail: async (req, res) => {
+  async confirmEmail(req, res) {
     const { token } = req.query;
 
     const user = await User.findOne({ email_confirmation_token: token });
@@ -455,7 +455,7 @@ const UserController = {
    * @param {Request} req express request object
    * @param {Response} res express response object
    */
-  requestEmailUpdate: async (req, res) => {
+  async requestEmailUpdate(req, res) {
     const { me } = req;
     const { email } = req.body;
 
@@ -514,7 +514,7 @@ const UserController = {
    * @param {Request} req express request object
    * @param {Response} res express response object
    */
-  confirmEmailUpdate: async (req, res) => {
+  async confirmEmailUpdate(req, res) {
     const { token } = req.query;
 
     const user = await User.findOne({ new_email_confirmation_token: token });
