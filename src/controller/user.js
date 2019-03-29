@@ -384,6 +384,32 @@ const UserController = {
   },
 
   /**
+   * Update an specific field in user
+   * @param {Request} req express request object
+   * @param {Response} res express response object
+   */
+  async updateNestedField(req, res) {
+    const { field } = req.params;
+    const valid = ['phones', 'address'].includes(field);
+
+    if (!valid) {
+      return res.status(400).send({ message: 'Invalid field.' });
+    }
+
+    try {
+      const { _id } = req.me;
+      const me = await User.findById(_id);
+
+      me.contact[field] = req.body.content;
+
+      await me.save();
+      res.send(me);
+    } catch (err) {
+      $.handleError(err);
+    }
+  },
+
+  /**
    * Upload a profile picuture and update it
    * @param {Request} req express request object
    * @param {Response} res express response object

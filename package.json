@@ -50,6 +50,7 @@
     "@config": "src/config",
     "@service": "src/service",
     "@middleware": "src/middleware",
+    "@helper": "src/helper",
     "@store": "store/index.js"
   }
 }

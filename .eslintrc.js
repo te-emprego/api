@@ -7,7 +7,8 @@ module.exports = {
     "extends": "airbnb-base",
     "globals": {
         "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly"
+        "SharedArrayBuffer": "readonly",
+        "$": false
     },
     "parserOptions": {
         "ecmaVersion": 2018
