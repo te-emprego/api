@@ -18,7 +18,13 @@ router
   .post('/users/me/avatar', whoAmI, multiparty, user.uploadProfilePicture)
   .post('/users/has-permission', whoAmI, allowedOnly('users/read'), user.hasPermission)
   .put('/users/profile', whoAmI, allowedOnly('users/update'), user.setProfile)
-  .patch('/users/me', whoAmI, allowedOnly('users/update'), user.updateProps);
+  .patch('/users/me', whoAmI, allowedOnly('users/update'), user.updateProps)
+  .post('/users/me/email', whoAmI, allowedOnly('users/update'), user.requestEmailUpdate);
+
+// public email confirmation urls
+router
+  .get('/confirm-account', user.confirmEmail)
+  .get('/confirm-new-email', user.confirmEmailUpdate);
 
 router
   .post('/profiles', whoAmI, allowedOnly('admin'), profile.create)

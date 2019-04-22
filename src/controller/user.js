@@ -72,12 +72,19 @@ const signUp = async (req, res) => {
   // generates user gravatar
   user.avatar = user.gravatar();
 
+  // email confirmation token
+  const token = (await crypto.randomBytes(56)).toString('hex');
+  user.email_confirmation_token = token;
+
   user.save((err) => {
     if (err) {
       logger.error(`Houve um erro ao criar o usuário ${user.email}`);
       return res
         .status(500)
-        .send({ message: 'Erro ao criar usuário.', error: err });
+        .send({
+          message: 'Erro ao criar usuário.',
+          error: err,
+        });
     }
 
     mailer.sendgrid.sendMail({
@@ -86,6 +93,7 @@ const signUp = async (req, res) => {
       subject: 'Bem vindo',
       template: 'bem-vindo',
       context: {
+        token,
         name: user.name,
         email: user.email,
         appBase: 'http://localhost:3000',
@@ -356,14 +364,9 @@ const updateProps = async (req, res) => {
   const { user } = req.body;
   const { me } = req;
 
-  // check if email already exists
-  const exists = await User.findOne({ email: user.email });
-  if (exists) {
-    return error({
-      res,
-      status: 400,
-      payload: 'O email informado já está cadastrado no sistema.',
-    });
+  // can't update email here
+  if (user.email) {
+    delete user.email;
   }
 
   User
@@ -413,6 +416,119 @@ const uploadProfilePicture = async (req, res) => {
     });
 };
 
+/**
+ * Confirm user email
+ * @param {Request} req express request object
+ * @param {Response} res express response object
+ */
+const confirmEmail = async (req, res) => {
+  const { token } = req.query;
+
+  const user = await User.findOne({ email_confirmation_token: token });
+
+  if (!user) {
+    return res
+      .status(400)
+      .send({ message: 'Este token não é válido' });
+  }
+
+  if (user.email_confirmed === true) {
+    return res
+      .send(200)
+      .send({ message: 'Este usuário já está confirmado.' });
+  }
+
+  user.email_confirmed = true;
+
+  await user.save();
+  return res
+    .status(200)
+    .send({ message: 'Email confirmado com sucesso.' });
+};
+
+/**
+ * Update actual user email
+ * @param {Request} req express request object
+ * @param {Response} res express response object
+ */
+const requestEmailUpdate = async (req, res) => {
+  const { me } = req;
+  const { email } = req.body;
+
+  const exists = await User.findOne({ email });
+  if (exists) {
+    return res
+      .status(400)
+      .send({
+        message: 'Este email já está cadastrado.',
+      });
+  }
+
+  try {
+    const user = await User.findOne({ _id: me._id });
+    const token = (await crypto.randomBytes(56)).toString('hex');
+
+    user.new_email = email;
+    user.new_email_confirmation_token = token;
+
+    await user.save();
+
+    mailer.sendgrid.sendMail({
+      to: email,
+      from: 'no-reply@teemprego.com.br',
+      subject: 'Confirmar novo email',
+      template: 'novo-email',
+      context: {
+        token,
+        name: user.name,
+        email: user.new_email,
+        appBase: 'http://localhost:3000',
+        imagesBase: 'https://teemprego.com.br/content/mail',
+      },
+    }, (err) => {
+      if (err) { throw err; }
+
+      logger.info(`Usuário solicitou alteração do email: ${user.email} para o email: ${user.new_email}`);
+
+      res
+        .status(201)
+        .send({
+          message: 'Confirme seu novo email.',
+        });
+    });
+  } catch (err) {
+    logger.error(err);
+    console.log(err);
+    return res
+      .status(500)
+      .send({ message: 'Erro interno do servidor.' });
+  }
+};
+
+/**
+ * Confirm the new email email
+ * @param {Request} req express request object
+ * @param {Response} res express response object
+ */
+const confirmEmailUpdate = async (req, res) => {
+  const { token } = req.query;
+
+  const user = await User.findOne({ new_email_confirmation_token: token });
+  if (!user) {
+    return res
+      .status(200)
+      .send({ message: 'O usuário não tem comparativo.' });
+  }
+
+  user.email = user.new_email;
+  user.new_email = '';
+  user.new_email_confirmation_token = '';
+
+  await user.save();
+  return res
+    .send({ message: 'Email atualizado com sucesso.' });
+};
+
 module.exports = {
   signUp,
   signIn,
@@ -424,4 +540,7 @@ module.exports = {
   updateProps,
   helpers,
   uploadProfilePicture,
+  confirmEmail,
+  requestEmailUpdate,
+  confirmEmailUpdate,
 };

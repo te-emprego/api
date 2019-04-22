@@ -4,7 +4,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<title>Bem Vindo ao Te Emprego, {{ name }}!</title>
+	<title>Confirmar novo email</title>
 	<style type="text/css">
 
 		#outlook a {padding:0;}
@@ -154,7 +154,7 @@
 										<td width="100%" colspan="3" align="center" style="padding-bottom:10px;padding-top:25px;">
 											<div class="contentEditableContainer contentTextEditable">
 												<div class="contentEditable" >
-													<h2 >Bem-vindo a bordo, {{ name }}!</h2>
+													<h2 >Confirmar novo email, {{ name }}!</h2>
 												</div>
 											</div>
 										</td>
@@ -164,7 +164,7 @@
 										<td width="400" align="center" style="padding-bottom:5px;">
 											<div class="contentEditableContainer contentTextEditable">
 												<div class="contentEditable" >
-													<p >Ficamos felizes em saber que você está usando a nossa plataforma. Agora confirme sua conta:</p>
+													<p >Parece que você quer trocar de email. Sem problemas! Confirme seu novo email:</p>
 												</div>
 											</div>
 										</td>
@@ -183,7 +183,7 @@
 													<td bgcolor="#561EBB" align="center" style="border-radius:4px;" width="200" height="50">
 														<div class="contentEditableContainer contentTextEditable">
 															<div class="contentEditable" >
-																<a target='_blank' href="{{ appBase }}/confirm-account?token={{ token }}" class='link2'>Confirmar minha conta</a>
+																<a target='_blank' href="{{ appBase }}/confirm-new-email?token={{ token }}" class='link2'>Confirmar minha conta</a>
 															</div>
 														</div>
 													</td>
@@ -195,101 +195,6 @@
 								</table>
 							</div>
 
-
-							<div class='movableContent'>
-								<table cellpadding="0" cellspacing="0" border="0" align="center" width="100%" style="border-collapse:collapse;">
-									<tr>
-										<td style="color:#fff;" class='bgItem'>
-											<table cellpadding="0" style="border-collapse:collapse;" cellspacing="0" border="0" align="center" width="600">
-												<tr>
-													<td width="200" style="vertical-align:bottom;">
-														<div class="contentEditableContainer contentImageEditable">
-															<div class="contentEditable" >
-																<div style="padding-top:20px;text-align:center;">
-																	<img src="https://i.imgur.com/Ia2GnKS.png" width="148" data-default="placeholder" data-max-width="200" style="margin-bottom:-3px;" />
-																</div>
-															</div>
-														</div>
-														
-													</td>
-													<td width="400" valign="top" style="padding-top:40px;padding-bottom:20px;">
-														<br/>
-														<div class="contentEditableContainer contentTextEditable">
-															<div class="contentEditable" >
-																<div style="font-size:23px;font-family:Heveltica, Arial, sans-serif;color:#fff;">Um pouco mais sobre a gente</div>
-															</div>
-														</div>
-														
-														<div class="contentEditableContainer contentTextEditable">
-															<div class="contentEditable"  style="padding:20px 10px 0 0;margin:0;font-family:Helvetica, Arial, sans-serif;font-size:15px;line-height:150%;">
-																<p style='color:#FFFFFF;'>O Te Emprego é um aplicativo 100% gratuito e Open Source, que veio para ajudar as pessoas a encontrar e divulgar emprego.</strong></p>
-															</div>
-														</div>
-
-													</td>
-												</tr>
-											</table>
-										</td>
-									</tr>
-								</table>
-							</div>
-
-							<div class='movableContent' align='center' style='text-align:center;'>
-								<table cellpadding="0" cellspacing="0" border="0" align="center" width="600">
-									<tr>
-										<td width="100%" colspan="3" align="center" style="padding-bottom:40px;padding-top:100px;">
-											<div class="contentEditableContainer contentTextEditable">
-												<div class="contentEditable"  >
-													<h2 >Nossos valores</h2>
-												</div>
-											</div>
-
-										</td>
-									</tr>
-									<tr>
-										<td width="50">&nbsp;</td>
-										<td width="500" align="left">
-											<div class="contentEditableContainer contentTextEditable">
-												<div class="contentEditable" >
-													<div style="font-family:Helvetica, Arial, sans-serif;font-size:16px;line-height:160%;color:#561EBB;font-weight:bold;">Open Source</div>
-												</div>
-											</div>
-											<div style="height:20px;">&nbsp;</div>
-											<div class="contentEditableContainer contentTextEditable">
-												<div class="contentEditable" >
-													<p >Acreditamos fortemente na evolução do Open Source e contribuição da comunidade. Disponibilizamos ao público o código fonte do aplicativo, onde a comunidade pode visualizar o que está sendo feito e contribuir.</p>
-												</div>
-											</div>
-											<div style="height:20px;">&nbsp;</div>
-											<div class="contentEditableContainer contentTextEditable">
-												<div class="contentEditable" >
-													<div style="font-family:Helvetica, Arial, sans-serif;font-size:16px;line-height:160%;color:#561EBB;font-weight:bold;">Cultura da Ajuda ao próximo</div>
-												</div>
-											</div>
-											<div style="height:20px;">&nbsp;</div>
-											<div class="contentEditableContainer contentTextEditable">
-												<div class="contentEditable" >
-													<p >Uma plataforma <b>100% gratuita</b> para todos, onde se pode divulgar e procurar emprego, de todas as categorias.</p>
-												</div>
-											</div>
-											<div style="height:20px;">&nbsp;</div>
-											<div class="contentEditableContainer contentTextEditable">
-												<div class="contentEditable" >
-													<div style="font-family:Helvetica, Arial, sans-serif;font-size:16px;line-height:160%;color:#561EBB;font-weight:bold;">Eficiência</div>
-												</div>
-											</div>
-											<div style="height:20px;">&nbsp;</div>
-											<div class="contentEditableContainer contentTextEditable">
-												<div class="contentEditable" >
-													<p >O esquema de matchs demonstra ser mais eficiente.<br>Gostou do perfil? Curta. Gostou da vaga? Curta. Deu match? Só vai!</p>
-												</div>
-											</div>
-											
-										</td>
-										<td width="50">&nbsp;</td>
-									</tr>
-								</table>
-							</div>
 
 							<div class='movableContent'>
 								<table cellpadding="0" cellspacing="0" border="0" align="center" width="600">
