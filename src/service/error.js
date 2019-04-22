@@ -14,7 +14,7 @@ const error = ({ res, status, payload, log }) => {
     ? response.message = payload || 'Erro interno do servidor.'
     : response = payload;
 
-  (log && logger(log));
+  (log && logger.error(log));
 
   return res
     .status(status || 500)

@@ -5,7 +5,7 @@ const handleError = (res, status = 500, err, { message }) => {
     .status(status)
     .send({ message: message || err.message || 'Internal server error' });
 
-  logger({ error: err, message, status });
+  logger.error({ error: err, message, status });
 };
 
 module.exports = handleError;
