@@ -25,6 +25,7 @@ module.exports = {
       'no-unused-expressions': 'off',
       'no-return-assign': 'off',
       'linebreak-style': 'off',
-      'import/no-extraneous-dependencies': 'off'
+      'import/no-extraneous-dependencies': 'off',
+      'import/no-dynamic-require': 'off'
     }
 };
