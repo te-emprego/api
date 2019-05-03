@@ -9,6 +9,7 @@
       "@controller/*": ["src/controller/*"],
       "@config/*": ["src/config/*"],
       "@service/*": ["src/service/*"],
+      "@helper/*": ["src/helper/*"],
       "@middleware/*": ["src/middleware/*"],
       "@store": ["store/index.js"]
     }

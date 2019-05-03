@@ -10,6 +10,7 @@ const app = require('./src/app');
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useCreateIndex', true);
+mongoose.set('useFindAndModify', false);
 
 const port = normalize(config.port);
 
