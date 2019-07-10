@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/server.ts",
-    "build": "sucrase ./src -d ./dist --transforms typescript,imports",
-    "commit": "git cz"
+    "build": "sucrase ./src -d ./dist --transforms typescript,imports"
   },
   "author": "",
   "license": "ISC",
@@ -17,6 +16,7 @@
     "@types/mongoose": "^5.5.8",
     "@typescript-eslint/eslint-plugin": "^1.11.0",
     "@typescript-eslint/parser": "^1.11.0",
+    "cz-conventional-changelog": "^2.1.0",
     "eslint": "^6.0.1",
     "eslint-config-prettier": "^6.0.0",
     "eslint-config-standard": "^12.0.0",
@@ -34,5 +34,10 @@
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "mongoose": "^5.6.4"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
