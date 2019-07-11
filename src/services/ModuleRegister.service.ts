@@ -31,6 +31,7 @@ class ModuleRegisterService {
     })
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private getParams (params: string[], req: Request): any[] {
     const parameters = []
     params.forEach((param): void => {
