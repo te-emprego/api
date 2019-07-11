@@ -2,9 +2,14 @@ import { Schema, model } from 'mongoose'
 import UserInterface from './User.interface'
 
 const UserSchema = new Schema({
-  email: String,
-  firstName: String,
-  lastName: String
+  email: {
+    required: true,
+    type: String
+  },
+  name: {
+    required: true,
+    type: String
+  }
 }, {
   timestamps: true
 })

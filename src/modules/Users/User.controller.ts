@@ -1,17 +1,23 @@
-import User from './User.schema'
-import { Request, Response } from 'express'
-import ErrorService from '@services/Error.service'
+import UserSchema from './User.schema'
+import UserInterface from './User.interface'
+import { ModuleResponse } from '@services/ModuleRegister.service'
 
 class UserController {
-  public async index (req: Request, res: Response): Promise<Response> {
-    const users = await User.find()
-    ErrorService.log('vaksjasdha')
-    return res.json(users)
+  public async index (): Promise<ModuleResponse> {
+    const users = await UserSchema.find()
+    return {
+      status: 200,
+      data: users
+    }
   }
 
-  public async create (req: Request, res: Response): Promise<Response> {
-    const user = await User.create(req.body)
-    return res.json(user)
+  public async create (user: UserInterface): Promise<ModuleResponse> {
+    const createdUser = await UserSchema.create(user)
+    console.log(createdUser)
+    return {
+      status: 201,
+      data: createdUser
+    }
   }
 }
 

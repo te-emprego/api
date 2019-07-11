@@ -11,6 +11,7 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "outDir": "./dist",
     "target": "es6"
   },

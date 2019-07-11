@@ -1,9 +1,9 @@
-import { Router } from 'express'
+import ModuleRegisterService from '@services/ModuleRegister.service'
 import Controller from './User.controller'
+import endpoints from './endpoints.json'
 
-const routes = Router()
+const ModuleRoutes = new ModuleRegisterService(endpoints, Controller)
 
-routes.get('/', Controller.index)
-routes.post('/', Controller.create)
+ModuleRoutes.registerEndpoints()
 
-export default routes
+export default ModuleRoutes.getRoutes()
