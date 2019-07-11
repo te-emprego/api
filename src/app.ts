@@ -2,15 +2,13 @@ import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import routes from './routes'
-import dotenv from 'dotenv'
 import middlewares from '@middlewares'
+import config from '@config'
 
 class App {
   public express: express.Application
 
   public constructor () {
-    dotenv.config()
-    this.boot()
     this.express = express()
     this.middlewares()
     this.database()
@@ -32,10 +30,11 @@ class App {
     this.express.use(routes)
   }
 
-  public boot (): void {
+  public boot (): express.Application {
     console.clear()
-    console.log(`App starting at http://localhost:${process.env.PORT}`)
+    console.log(`App starting at http://localhost:${config.app.port}`)
+    return this.express
   }
 }
 
-export default new App().express
+export default App

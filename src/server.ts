@@ -1,4 +1,9 @@
 import 'module-alias/register'
-import app from './app'
+import config from '@config'
+import App from './app'
 
-app.listen(process.env.PORT || 3333)
+const app = new App()
+
+app
+  .boot()
+  .listen(config.app.port)
