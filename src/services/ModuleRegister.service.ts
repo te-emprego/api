@@ -24,6 +24,13 @@ class ModuleRegisterService {
     this.routes = Router()
   }
 
+  private registerDocumentedRoutes (): void {
+    this.routes.get('/api-documentation', (req: Request, res: Response): void => {
+      res
+        .json(this.endpoints)
+    })
+  }
+
   private getParams (params: string[], req: Request): any[] {
     const parameters = []
     params.forEach((param): void => {
@@ -32,7 +39,7 @@ class ModuleRegisterService {
     return parameters
   }
 
-  private async registerRoute (req: Request, res: Response, controller: Controller): Promise<Response> {
+  private async route (req: Request, res: Response, controller: Controller): Promise<Response> {
     const params = this.getParams(controller.params, req)
     const { status, data } = await this.controller[controller.method](...params)
     return res
@@ -40,16 +47,27 @@ class ModuleRegisterService {
       .send(data)
   }
 
+  private async documentation (res: Response, endpoint: Endpoint): Promise<Response> {
+    return res.json(endpoint)
+  }
+
+  private async decideToRoute (req: Request, res: Response, endpoint: Endpoint): Promise<Response> {
+    const controller = endpoint['@controller']
+    return req.query.docs
+      ? this.documentation(res, endpoint)
+      : this.route(req, res, controller)
+  }
+
   private registerSingleEndpoint = (endpoint: Endpoint): void => {
     const { route } = endpoint
-    const controller = endpoint['@controller']
     const method = endpoint.method.toLowerCase()
-    this.routes[method](route, (req: Request, res: Response): Promise<Response> => this.registerRoute(req, res, controller))
+    this.routes[method](route, (req: Request, res: Response): Promise<Response> => this.decideToRoute(req, res, endpoint))
   }
 
   public registerEndpoints (): void {
     this.endpoints
       .forEach(this.registerSingleEndpoint)
+    this.registerDocumentedRoutes()
   }
 
   public getRoutes (): Router {
