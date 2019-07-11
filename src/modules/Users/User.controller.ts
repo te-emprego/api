@@ -19,6 +19,15 @@ class UserController {
       data: createdUser
     }
   }
+
+  public async auth (): Promise<ModuleResponse> {
+    return {
+      status: 200,
+      data: {
+        message: 'google callback function'
+      }
+    }
+  }
 }
 
 export default new UserController()

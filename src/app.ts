@@ -31,7 +31,7 @@ class App {
   }
 
   public boot (): express.Application {
-    console.clear()
+    // console.clear()
     console.log(`App starting at http://localhost:${config.app.port}`)
     return this.express
   }

@@ -5,7 +5,7 @@
     "description": "get all users",
     "@controller": {
       "method": "index",
-      "params": [""]
+      "params": []
     }
   },
   {
