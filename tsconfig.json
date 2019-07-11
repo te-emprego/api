@@ -3,10 +3,14 @@
     "baseUrl": "src",
     "paths": {
       "@modules/*": ["modules/*"],
+      "@config": ["config.ts"],
+      "@middlewares": ["middlewares/index.ts"],
+      "@routes": ["routes.ts"],
       "@services/*": ["services/*"]
     },
     "module": "commonjs",
     "moduleResolution": "node",
+    "esModuleInterop": true,
     "outDir": "./dist",
     "target": "es6"
   },
