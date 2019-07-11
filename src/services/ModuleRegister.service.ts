@@ -25,7 +25,7 @@ class ModuleRegisterService {
   }
 
   private registerDocumentedRoutes (): void {
-    this.routes.get('/api-documentation', (req: Request, res: Response): void => {
+    this.routes.get('/_docs', (req: Request, res: Response): void => {
       res
         .json(this.endpoints)
     })
