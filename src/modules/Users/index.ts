@@ -1,9 +1,9 @@
 import ModuleRegisterService from '@services/ModuleRegister.service'
 import Controller from './User.controller'
-import endpoints from './endpoints.json'
+import Endpoints from './User.endpoints'
 import AuthenticationService from '@services/Authentication.service'
 
-const ModuleRoutes = new ModuleRegisterService(endpoints, Controller)
+const ModuleRoutes = new ModuleRegisterService(Endpoints, Controller)
 
 ModuleRoutes.registerEndpoints()
 
