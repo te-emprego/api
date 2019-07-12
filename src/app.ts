@@ -23,6 +23,7 @@ class App {
 
   private database (): void {
     mongoose.set('useNewUrlParser', true)
+    mongoose.set('useCreateIndex', true)
     mongoose.connect(process.env.DATABASE_CONNECTION_STRING)
   }
 
