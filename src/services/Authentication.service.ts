@@ -9,9 +9,10 @@ class AuthenticationService {
     this.passport.use(GoogleStrategy)
   }
 
-  public google = (options: passport.AuthenticateOptions): any => {
-    return this.passport.authenticate('google', { ...options })
-  }
+  // TODO: Add return type
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public google = (options: passport.AuthenticateOptions): any =>
+    this.passport.authenticate('google', { ...options })
 }
 
 export default new AuthenticationService()
