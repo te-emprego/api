@@ -26,8 +26,14 @@ class ModuleRegisterService {
 
   private registerDocumentedRoutes (): void {
     this.routes.get('/_docs', (req: Request, res: Response): void => {
-      res
-        .json(this.endpoints)
+      try {
+        res
+          .send(this.endpoints)
+      } catch (err) {
+        res
+          .status(500)
+          .send(err)
+      }
     })
   }
 
@@ -43,20 +49,30 @@ class ModuleRegisterService {
   private async route (req: Request, res: Response, controller: Controller): Promise<Response> {
     const params = this.getParams(controller.params, req)
     const { status, data } = await this.controller[controller.method](...params)
-    return res
-      .status(status)
-      .send(data)
+    try {
+      return res.status(status).send(data)
+    } catch (err) {
+      return res.status(500).send(err)
+    }
   }
 
   private async documentation (res: Response, endpoint: Endpoint): Promise<Response> {
-    return res.json(endpoint)
+    try {
+      return res.send(endpoint)
+    } catch (err) {
+      return res.status(500).send(err)
+    }
   }
 
   private async decideToRoute (req: Request, res: Response, endpoint: Endpoint): Promise<Response> {
-    const controller = endpoint['@controller']
-    return req.query.docs
-      ? this.documentation(res, endpoint)
-      : this.route(req, res, controller)
+    try {
+      const controller = endpoint['@controller']
+      return req.query.docs
+        ? this.documentation(res, endpoint)
+        : this.route(req, res, controller)
+    } catch (err) {
+      return res.status(500).send(err)
+    }
   }
 
   private registerSingleEndpoint = (endpoint: Endpoint): void => {
