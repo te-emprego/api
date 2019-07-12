@@ -1,2 +1,1 @@
-src/view/**
-*.md
+*.test.ts
