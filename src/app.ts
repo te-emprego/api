@@ -15,6 +15,12 @@ class App {
     this.routes()
   }
 
+  public boot (): express.Application {
+    // console.clear()
+    console.log(`App starting at http://localhost:${config.app.port}`)
+    return this.express
+  }
+
   private middlewares (): void {
     this.express.use(express.json())
     this.express.use(cors())
@@ -29,12 +35,6 @@ class App {
 
   private routes (): void {
     this.express.use(routes)
-  }
-
-  public boot (): express.Application {
-    // console.clear()
-    console.log(`App starting at http://localhost:${config.app.port}`)
-    return this.express
   }
 }
 
