@@ -18,7 +18,7 @@ class ModuleRegisterService {
   public controller: Controller
   public routes: Router
 
-  public constructor (endpoints: Endpoint[], controller) {
+  public constructor (endpoints: Endpoint[], controller: Controller) {
     this.endpoints = endpoints
     this.controller = controller
     this.routes = Router()
