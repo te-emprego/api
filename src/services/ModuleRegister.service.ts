@@ -15,7 +15,7 @@ interface Endpoint {
 
 class ModuleRegisterService {
   public endpoints: Endpoint[]
-  public controller
+  public controller: Controller
   public routes: Router
 
   public constructor (endpoints: Endpoint[], controller) {
