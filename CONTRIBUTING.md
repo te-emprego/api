@@ -51,7 +51,7 @@ Ele gera commits semânticos com `${tipo}(${arquivo}): ${ação}`. Exemplos de c
   - `docs(license): move license file to markdown rules`
 
 ## Enviando um *pull request*
-O Core Team está monitorando os pull requests. Analisaremos seu envio e fazermos o merge, solicitaremos alterações ou podemos fechá-la com uma explicação plausível. Para alterações de API, podemos precisar corrigir nossos usos internos no site, o que pode causar algum atraso. Faremos o nosso melhor para fornecer atualizações e feedback durante todo o processo.
+O Core Team está monitorando os pull requests. Analisaremos seu envio e faremos o merge, solicitaremos alterações ou podemos fechá-la com uma explicação plausível. Para alterações de API, podemos precisar corrigir nossos usos internos no site, o que pode causar algum atraso. Faremos o nosso melhor para fornecer atualizações e feedback durante todo o processo.
 
 O Daniel Bonifacio criou um [vídeo onde mostra passo a passo como contribuir para os nossos repositórios](https://youtu.be/n0lSrPl9DTc).
 
