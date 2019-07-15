@@ -22,11 +22,16 @@ PORT=
 # jwt decode token
 SECRET=
 
-# mongodb connection string
-MONGO_DB=
+# database connection string
+DATABASE_CONNECTION_STRING=
 
-# sendgrid api key
-SENDGRID_API=
+# local docker-compose mongodb init credentials
+MONGO_INITDB_ROOT_USERNAME=
+MONGO_INITDB_ROOT_PASSWORD=
+
+# google oauth 2.0 api keys
+PASSPORT_GOOGLE_CLIENT_ID=
+PASSPORT_GOOGLE_CLIENT_SECRET=
 ```
 
 Você também pode gerar um arquivo `.env` com o comando `node cli generate:env`.
