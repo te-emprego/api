@@ -30,7 +30,16 @@ class App {
   private database (): void {
     mongoose.set('useNewUrlParser', true)
     mongoose.set('useCreateIndex', true)
-    mongoose.connect(process.env.DATABASE_CONNECTION_STRING)
+    mongoose.set('auth', { authdb: 'admin' })
+    mongoose
+      .connect(config.app.database.connectionString)
+      .then(() => {
+        console.log('connected to db')
+      })
+      .catch((error) => {
+        console.log('error during database connection')
+        console.log(error.message)
+      })
   }
 
   private routes (): void {
