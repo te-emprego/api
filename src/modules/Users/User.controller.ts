@@ -1,7 +1,6 @@
 import UserSchema from './User.schema'
 import UserInterface from './User.interface'
 import { ModuleResponse } from '@services/ModuleRegister.service'
-
 class UserController {
   public async index (): Promise<ModuleResponse> {
     const users = await UserSchema.find()
