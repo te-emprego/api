@@ -3,7 +3,8 @@ import { Router, Request, Response } from 'express'
 
 interface Controller {
   method?: string,
-  params?: string[]
+  params?: string[],
+  [key: string]: any
 }
 
 interface Endpoint {
@@ -37,7 +38,6 @@ class ModuleRegisterService {
     })
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private getParams (params: string[], req: Request): any[] {
     const parameters = []
     params.forEach((param): void => {

@@ -33,10 +33,10 @@ class App {
     mongoose.set('auth', { authdb: 'admin' })
     mongoose
       .connect(config.app.database.connectionString)
-      .then(() => {
+      .then((): void => {
         console.log('connected to db')
       })
-      .catch((error) => {
+      .catch((error): void => {
         console.log('error during database connection')
         console.log(error.message)
       })
