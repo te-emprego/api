@@ -1,0 +1,23 @@
+version: "3.0"
+
+volumes:
+  mongodb:
+
+networks:
+  mongo:
+    driver: bridge
+
+services:
+  mongo-primary:
+    image: mongo:latest
+    volumes:
+      - mongodb:/data/db
+    env_file:
+      ./.env
+    ports:
+      - 27017:27017
+    command: 'mongod --smallfiles --auth'
+
+    networks:
+      mongo:
+    restart: always

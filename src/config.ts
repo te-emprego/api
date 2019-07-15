@@ -3,7 +3,10 @@ dotenv.config()
 
 export default {
   app: {
-    port: process.env.PORT || 3333
+    port: process.env.PORT || 3333,
+    database: {
+      connectionString: process.env.DATABASE_CONNECTION_STRING
+    }
   },
   passport: {
     google: {
