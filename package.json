@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "nodemon src/server.ts",
     "test": "jest",
-    "build": "sucrase ./src -d ./dist --transforms typescript,imports"
+    "build": "sucrase ./src -d ./dist --transforms typescript,imports",
+    "babel": "babel-node index.js",
+    "babel-debug": "nodemon --exec babel-node index.js --debug"
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +21,8 @@
     "@types/mongoose": "^5.5.8",
     "@typescript-eslint/eslint-plugin": "^1.11.0",
     "@typescript-eslint/parser": "^1.11.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "cz-conventional-changelog": "^2.1.0",
     "eslint": "^6.0.1",
     "eslint-config-prettier": "^6.0.0",
