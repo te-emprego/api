@@ -33,7 +33,7 @@ class ModuleRegisterService {
       } catch (err) {
         res
           .status(500)
-          .send(err)
+          .send({ message: err.message })
       }
     })
   }
@@ -52,7 +52,9 @@ class ModuleRegisterService {
     try {
       return res.status(status).send(data)
     } catch (err) {
-      return res.status(500).send(err)
+      return res
+        .status(500)
+        .send({ message: err.message })
     }
   }
 
@@ -60,7 +62,7 @@ class ModuleRegisterService {
     try {
       return res.send(endpoint)
     } catch (err) {
-      return res.status(500).send(err)
+      return res.status(500).send({ message: err.message })
     }
   }
 
