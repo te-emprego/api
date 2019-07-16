@@ -16,10 +16,10 @@ export default interface UserInterface extends Document {
   email: string
   password: string
   emailConfirm?: string
-  phone: string
+  phone?: string
   avatar?: string
-  birthdate: Date
+  birthdate?: Date
   lastLogin?: Date
   address?: Address
-  passwordReset: PasswordReset
+  passwordReset?: PasswordReset
 }

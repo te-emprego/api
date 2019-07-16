@@ -28,9 +28,9 @@ const UserSchema = new Schema({
     type: String,
     unique: true
   },
-  emailConfirm: {
+  password: {
     type: String,
-    select: false
+    required: true
   },
   name: {
     required: true,
@@ -38,15 +38,13 @@ const UserSchema = new Schema({
   },
   phone: {
     type: String,
-    unique: true,
-    required: true
+    unique: true
   },
   avatar: {
     type: String
   },
   birthdate: {
-    type: Date,
-    required: true
+    type: Date
   },
   address: {
     type: AddressSchema
@@ -54,9 +52,9 @@ const UserSchema = new Schema({
   lastLogin: {
     type: Date
   },
-  password: {
+  emailConfirm: {
     type: String,
-    required: true
+    select: false
   },
   passwordReset: {
     type: PasswordResetSchema,

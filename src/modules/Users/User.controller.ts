@@ -1,22 +1,19 @@
 import UserSchema from './User.schema'
-import UserInterface from './User.interface'
 import { ModuleResponse } from '@services/ModuleRegister.service'
+import { create } from './methods'
 
 class UserController {
+  public create: any
+
+  public constructor () {
+    this.create = create.run
+  }
+
   public async index (): Promise<ModuleResponse> {
     const users = await UserSchema.find()
     return {
       status: 200,
       data: users
-    }
-  }
-
-  public async create (user: UserInterface): Promise<ModuleResponse> {
-    const createdUser = await UserSchema.create(user)
-    console.log(createdUser)
-    return {
-      status: 201,
-      data: createdUser
     }
   }
 

@@ -40,6 +40,7 @@
     "@types/passport": "^1.0.0",
     "@types/passport-google-oauth20": "^2.0.2",
     "bcrypt": "^3.0.6",
+    "class-validator": "^0.9.1",
     "cors": "^2.8.5",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
