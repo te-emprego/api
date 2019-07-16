@@ -1,12 +1,14 @@
 import UserSchema from './User.schema'
 import { ModuleResponse } from '@services/ModuleRegister.service'
-import { create } from './methods'
+import { create, login } from './methods'
 
 class UserController {
   public create: any
+  public login: any
 
   public constructor () {
     this.create = create.run
+    this.login = login.handle
   }
 
   public async index (): Promise<ModuleResponse> {
