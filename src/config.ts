@@ -3,6 +3,7 @@ dotenv.config()
 
 export default {
   app: {
+    secret: process.env.SECRET,
     port: process.env.PORT || 3333,
     database: {
       connectionString: process.env.DATABASE_CONNECTION_STRING

@@ -38,6 +38,7 @@
   "dependencies": {
     "@types/bcrypt": "^3.0.0",
     "@types/express-rate-limit": "^3.3.0",
+    "@types/jwt-simple": "^0.5.33",
     "@types/passport": "^1.0.0",
     "@types/passport-google-oauth20": "^2.0.2",
     "bcrypt": "^3.0.6",
@@ -46,6 +47,7 @@
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "express-rate-limit": "^5.0.0",
+    "jwt-simple": "^0.5.6",
     "lodash": "^4.17.14",
     "module-alias": "^2.2.0",
     "mongoose": "^5.6.4",
@@ -56,6 +58,8 @@
     "@modules": "src/modules",
     "@middlewares": "src/middlewares",
     "@routes": "src/routes.ts",
+    "@classes": "src/classes",
+    "@interfaces": "src/interfaces",
     "@config": "src/config.ts",
     "@services": "src/services"
   },

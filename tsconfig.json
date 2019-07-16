@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
+    "baseUrl": "./src",
     "paths": {
       "@modules/*": ["modules/*"],
+      "@classes/*": ["classes/*"],
+      "@interfaces/*": ["interfaces/*"],
+      "@services/*": ["services/*"],
       "@config": ["config.ts"],
       "@middlewares": ["middlewares/index.ts"],
-      "@routes": ["routes.ts"],
-      "@services/*": ["services/*"]
+      "@routes": ["routes.ts"]
     },
     "module": "commonjs",
     "moduleResolution": "node",
