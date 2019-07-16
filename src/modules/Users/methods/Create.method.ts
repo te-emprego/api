@@ -27,9 +27,7 @@ class Method {
 
   public run = async (user: UserInterface): Promise<ModuleResponse> => {
     try {
-      this
-        .runValidation(user)
-        .catch((): Promise<UserInterface> => this.store(user))
+      await this.runValidation(user)
       const storedUser = await this.store(user)
 
       return {
@@ -52,8 +50,18 @@ class Method {
     await validateOrReject(this.validation)
       .catch((errors): void => {
         this.returnStatus = 400
-        this.returnData = { message: 'validatio error', errors }
+        this.returnData = { message: 'fields doesn\'t pass on validator', errors }
         throw new Error('Validation error')
+      })
+
+    await UserModel
+      .findOne({ email: data.email })
+      .then((user): void => {
+        if (user) {
+          this.returnStatus = 400
+          this.returnData = { message: 'email already exists' }
+          throw new Error('Validation error')
+        }
       })
   }
 
