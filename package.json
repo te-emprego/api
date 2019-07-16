@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon src/server.ts",
     "test": "jest",
-    "build": "sucrase ./src -d ./dist --transforms typescript,imports"
+    "build": "tsc"
   },
   "author": "",
   "license": "ISC",
@@ -32,6 +32,7 @@
     "prettier": "^1.18.2",
     "sucrase": "^3.10.1",
     "ts-jest": "^24.0.2",
+    "ts-node": "^8.3.0",
     "typescript": "^3.5.3"
   },
   "dependencies": {
