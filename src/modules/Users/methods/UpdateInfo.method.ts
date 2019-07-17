@@ -25,6 +25,7 @@ class UpdateInfo extends ControllerMethod {
 
     // Sensitive data
     delete sanitized.email
+    delete sanitized.active
     delete sanitized.emailConfirm
     delete sanitized.password
     delete sanitized.passwordReset

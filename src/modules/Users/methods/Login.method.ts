@@ -12,6 +12,9 @@ class Login extends ControllerMethod {
     const user = await UserModel.findOne({ email })
     const passwordMatch = await compare(password, user.password)
 
+    user.active = true
+    await user.save()
+
     const loggedIn = user && passwordMatch
 
     return {

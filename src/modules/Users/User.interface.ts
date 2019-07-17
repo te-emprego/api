@@ -12,6 +12,7 @@ interface PasswordReset {
 }
 
 export default interface UserInterface extends Document {
+  active: boolean
   name: string
   email: string
   password: string

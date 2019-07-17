@@ -20,6 +20,10 @@ const PasswordResetSchema = new Schema({
 })
 
 const UserSchema = new Schema({
+  active: {
+    default: true,
+    type: Boolean
+  },
   email: {
     required: true,
     type: String,

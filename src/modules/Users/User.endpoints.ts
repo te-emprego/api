@@ -38,6 +38,15 @@ export default [
     }
   },
   {
+    'route': '/:userId',
+    'method': 'delete',
+    'description': 'deactivate specific user',
+    '@controller': {
+      'method': 'deactivate',
+      'params': ['params.userId']
+    }
+  },
+  {
     'route': '/',
     'method': 'post',
     'description': 'post a new user',
