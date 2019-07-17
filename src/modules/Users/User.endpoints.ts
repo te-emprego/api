@@ -29,6 +29,15 @@ export default [
     }
   },
   {
+    'route': '/:userId',
+    'method': 'get',
+    'description': 'get specific user by id',
+    '@controller': {
+      'method': 'find',
+      'params': ['params.userId']
+    }
+  },
+  {
     'route': '/',
     'method': 'post',
     'description': 'post a new user',
