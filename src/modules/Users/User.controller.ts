@@ -1,31 +1,22 @@
-import { ModuleResponse } from '@services/ModuleRegister.service'
-import { create, login, list, updateInfo, find, deactivate } from './methods'
+import createMethod from './methods/Create.method'
+import loginMethod from './methods/Login.method'
+import listMethod from './methods/List.method'
+import updateInfoMethod from './methods/UpdateInfo.method'
+import findMethod from './methods/Find.method'
+import deactivateMethod from './methods/Deactivate.mehtod'
 
-class UserController {
-  public create: any
-  public login: any
-  public list: any
-  public updateInfo: any
-  public find: any
-  public deactivate: any
+export const create = createMethod
+export const login = loginMethod
+export const list = listMethod
+export const updateInfo = updateInfoMethod
+export const find = findMethod
+export const deactivate = deactivateMethod
 
-  public constructor () {
-    this.create = create.run
-    this.login = login.handle
-    this.list = list.handle
-    this.updateInfo = updateInfo.handle
-    this.find = find.handle
-    this.deactivate = deactivate.handle
-  }
-
-  public async auth (): Promise<ModuleResponse> {
-    return {
-      status: 200,
-      data: {
-        message: 'google callback function'
-      }
-    }
-  }
+export default {
+  create: createMethod.run,
+  login: loginMethod.handle,
+  list: listMethod.handle,
+  updateInfo: updateInfo.handle,
+  find: find.handle,
+  deactivate: deactivate.handle
 }
-
-export default new UserController()
