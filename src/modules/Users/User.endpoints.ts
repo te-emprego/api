@@ -5,7 +5,7 @@ export default [
     'description': 'get all users',
     '@middlewares': false,
     '@controller': {
-      'method': 'index',
+      'method': 'list',
       'params': []
     }
   },
@@ -17,6 +17,33 @@ export default [
     '@controller': {
       'method': 'login',
       'params': ['body.credentials']
+    }
+  },
+  {
+    'route': '/:userId',
+    'method': 'put',
+    'description': 'update user props',
+    '@controller': {
+      'method': 'updateInfo',
+      'params': ['params.userId', 'body.props']
+    }
+  },
+  {
+    'route': '/:userId',
+    'method': 'get',
+    'description': 'get specific user by id',
+    '@controller': {
+      'method': 'find',
+      'params': ['params.userId']
+    }
+  },
+  {
+    'route': '/:userId',
+    'method': 'delete',
+    'description': 'deactivate specific user',
+    '@controller': {
+      'method': 'deactivate',
+      'params': ['params.userId']
     }
   },
   {

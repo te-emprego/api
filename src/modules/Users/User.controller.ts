@@ -1,22 +1,21 @@
-import UserSchema from './User.schema'
 import { ModuleResponse } from '@services/ModuleRegister.service'
-import { create, login } from './methods'
+import { create, login, list, updateInfo, find, deactivate } from './methods'
 
 class UserController {
   public create: any
   public login: any
+  public list: any
+  public updateInfo: any
+  public find: any
+  public deactivate: any
 
   public constructor () {
     this.create = create.run
     this.login = login.handle
-  }
-
-  public async index (): Promise<ModuleResponse> {
-    const users = await UserSchema.find()
-    return {
-      status: 200,
-      data: users
-    }
+    this.list = list.handle
+    this.updateInfo = updateInfo.handle
+    this.find = find.handle
+    this.deactivate = deactivate.handle
   }
 
   public async auth (): Promise<ModuleResponse> {

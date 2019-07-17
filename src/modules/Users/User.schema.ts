@@ -4,16 +4,13 @@ import bcrypt from 'bcrypt'
 
 const AddressSchema = new Schema({
   country: {
-    type: Schema.Types.ObjectId,
-    ref: 'Country'
+    type: String
   },
   state: {
-    type: Schema.Types.ObjectId,
-    ref: 'State'
+    type: String
   },
   city: {
-    type: Schema.Types.ObjectId,
-    ref: 'City'
+    type: String
   }
 })
 
@@ -23,6 +20,10 @@ const PasswordResetSchema = new Schema({
 })
 
 const UserSchema = new Schema({
+  active: {
+    default: true,
+    type: Boolean
+  },
   email: {
     required: true,
     type: String,
