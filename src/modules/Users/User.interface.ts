@@ -22,4 +22,6 @@ export default interface UserInterface extends Document {
   lastLogin?: Date
   address?: Address
   passwordReset?: PasswordReset
+  createdAt: Date
+  updatedAt: Date
 }

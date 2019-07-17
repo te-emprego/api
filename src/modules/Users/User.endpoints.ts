@@ -20,6 +20,15 @@ export default [
     }
   },
   {
+    'route': '/:userId',
+    'method': 'put',
+    'description': 'update user props',
+    '@controller': {
+      'method': 'updateInfo',
+      'params': ['params.userId', 'body.props']
+    }
+  },
+  {
     'route': '/',
     'method': 'post',
     'description': 'post a new user',
