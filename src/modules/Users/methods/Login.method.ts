@@ -1,8 +1,7 @@
 import ControllerMethod from '@classes/ControllerMethod.class'
 import TokenService from '@services/Token.service'
 import UserModel from '@modules/Users/User.schema'
-import Credentials from '@interfaces/Credentials.interface'
-import { ModuleResponse } from '@services/ModuleRegister.service'
+import { ModuleResponse, Credentials } from '@interfaces'
 import { compare } from 'bcrypt'
 
 class Login extends ControllerMethod {

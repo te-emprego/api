@@ -4,8 +4,8 @@
     "paths": {
       "@modules/*": ["modules/*"],
       "@classes/*": ["classes/*"],
-      "@interfaces/*": ["interfaces/*"],
       "@services/*": ["services/*"],
+      "@interfaces": ["interfaces/index.ts"],
       "@config": ["config.ts"],
       "@middlewares": ["middlewares/index.ts"],
       "@routes": ["routes.ts"]
