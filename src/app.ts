@@ -30,6 +30,7 @@ class App {
   private database (): void {
     mongoose.set('useNewUrlParser', true)
     mongoose.set('useCreateIndex', true)
+    mongoose.set('useFindAndModify', false)
     mongoose.set('auth', { authdb: 'admin' })
     mongoose
       .connect(config.app.database.connectionString)
