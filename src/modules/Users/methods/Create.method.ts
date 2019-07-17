@@ -1,4 +1,4 @@
-import { ModuleResponse } from '@services/ModuleRegister.service'
+import { ModuleResponse } from '@interfaces'
 import UserInterface from '../User.interface'
 import UserModel from '../User.schema'
 import { validateOrReject, IsEmail, IsString, Length } from 'class-validator'

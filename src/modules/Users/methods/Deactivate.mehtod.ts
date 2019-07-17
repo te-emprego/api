@@ -1,6 +1,6 @@
 import ControllerMethod from '@classes/ControllerMethod.class'
 import UserModel from '@modules/Users/User.schema'
-import { ModuleResponse } from '@services/ModuleRegister.service'
+import { ModuleResponse } from '@interfaces'
 
 class Deactivate extends ControllerMethod {
   public handle = async (userId: string): Promise<ModuleResponse> => {

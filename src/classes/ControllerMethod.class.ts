@@ -1,4 +1,4 @@
-// import { ModuleResponse } from '@services/ModuleRegister.service'
+// import { ModuleResponse } from '@interfaces'
 
 class Method {
   // public handle: Promise<ModuleResponse>

@@ -59,7 +59,7 @@
     "@middlewares": "src/middlewares",
     "@routes": "src/routes.ts",
     "@classes": "src/classes",
-    "@interfaces": "src/interfaces",
+    "@interfaces": "src/interfaces/index.ts",
     "@config": "src/config.ts",
     "@services": "src/services"
   },

@@ -1,7 +1,7 @@
 import ControllerMethod from '@classes/ControllerMethod.class'
 import UserModel from '@modules/Users/User.schema'
 import UserInterface from '@modules/Users/User.interface'
-import { ModuleResponse } from '@services/ModuleRegister.service'
+import { ModuleResponse } from '@interfaces'
 
 class UpdateInfo extends ControllerMethod {
   public handle = async (userId: string, newProps: UserInterface): Promise<ModuleResponse> => {

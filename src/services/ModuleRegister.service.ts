@@ -1,19 +1,6 @@
 import { get } from 'lodash'
 import { Router, Request, Response } from 'express'
-
-interface Controller {
-  method?: string,
-  params?: string[],
-  [key: string]: any
-}
-
-interface Endpoint {
-  route?: string,
-  method?: string,
-  description?: string,
-  '@controller': Controller
-}
-
+import { Controller, Endpoint } from '@interfaces'
 class ModuleRegisterService {
   public endpoints: Endpoint[]
   public controller: Controller
@@ -95,8 +82,3 @@ class ModuleRegisterService {
 }
 
 export default ModuleRegisterService
-
-export interface ModuleResponse {
-  status: number
-  data: object
-}
