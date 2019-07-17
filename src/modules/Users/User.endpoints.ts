@@ -5,7 +5,7 @@ export default [
     'description': 'get all users',
     '@middlewares': false,
     '@controller': {
-      'method': 'index',
+      'method': 'list',
       'params': []
     }
   },
