@@ -2,10 +2,8 @@ import ControllerMethod from '@classes/ControllerMethod.class'
 import TokenService from '@services/Token.service'
 import UserModel from '@modules/Users/User.schema'
 import { ModuleResponse, Credentials } from '@interfaces'
-import { compare } from 'bcrypt'
 import { validateOrReject, IsString, IsEmail } from 'class-validator'
 import UserInterface from '../User.interface'
-import HttpException from '@classes/HttpException.class'
 
 class InputValidation {
   @IsString()
@@ -23,7 +21,8 @@ class Login extends ControllerMethod {
     this.credentials = credentials
 
     return this
-      .findUser()
+      .validateInput()
+      .then(this.findUser)
       .then(this.verifyPassword)
       .then(this.generateToken)
       .then(this.respond)
@@ -45,6 +44,17 @@ class Login extends ControllerMethod {
 
     this.user = user
   }
+
+  private validateInput = async (): Promise<void> => new Promise(async (resolve): Promise<void> => {
+    const validation = new InputValidation()
+    validation.email = this.credentials.email
+    validation.password = this.credentials.password
+    await validateOrReject(validation)
+      .catch((): void => {
+        throw new this.HttpException(400, 'invalid inputs')
+      })
+    resolve()
+  })
 
   private generateToken = (): void => {
     const token = TokenService.encode(this.user)

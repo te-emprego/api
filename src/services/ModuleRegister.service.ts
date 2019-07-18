@@ -40,6 +40,7 @@ class ModuleRegisterService {
       const { status, data } = await this.controller[controller.method](...params, next)
       return res.status(status).send(data)
     } catch (err) {
+      console.log(err)
       return res
         .status(err.status || 500)
         .send({ message: err.message })
