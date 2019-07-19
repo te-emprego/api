@@ -1,6 +1,6 @@
 import passport from 'passport'
 import GoogleStrategy from '@services/strategies/Google.strategy'
-import { compare } from 'bcrypt'
+import { compare as bcryptCompare } from 'bcrypt'
 
 class AuthenticationService {
   private passport: passport.PassportStatic
@@ -9,15 +9,15 @@ class AuthenticationService {
   public constructor () {
     this.passport = passport
     this.passport.use(GoogleStrategy)
-    this.bcryptCompare = compare
+    this.bcryptCompare = bcryptCompare
   }
 
   public google = (options: passport.AuthenticateOptions): any =>
     this.passport.authenticate('google', { ...options })
 
-  public comparePassword = (pass: string, hash: string): boolean => {
+  public comparePassword = async (pass: string, hash: string): Promise<boolean> => {
     try {
-      return !!this.bcryptCompare(pass, hash)
+      return await this.bcryptCompare(pass, hash)
     } catch (err) {
       // if pass or hash is nullable, bcrypt throws an error
       return false

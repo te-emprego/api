@@ -29,7 +29,9 @@ class Login extends ControllerMethod {
   }
 
   private verifyPassword = async (): Promise<void> => {
-    const match = this.Auth.comparePassword(this.credentials.password, this.user.password)
+    const match = await this.Auth
+      .comparePassword(this.credentials.password, this.user.password)
+
     if (!match) {
       throw new this.HttpException(400, 'invalid credentials')
     }
@@ -45,20 +47,21 @@ class Login extends ControllerMethod {
     this.user = user
   }
 
-  private validateInput = async (): Promise<void> => new Promise(async (resolve): Promise<void> => {
-    const validation = new InputValidation()
-    validation.email = this.credentials.email
-    validation.password = this.credentials.password
-    await validateOrReject(validation)
-      .catch((): void => {
-        throw new this.HttpException(400, 'invalid inputs')
-      })
-    resolve()
-  })
+  private validateInput = async (): Promise<void> => {
+    try {
+      const validation = new InputValidation()
+      validation.email = this.credentials.email
+      validation.password = this.credentials.password
+      await validateOrReject(validation)
+    } catch (error) {
+      throw new this.HttpException(400, 'invalid inputs')
+    }
+  }
 
   private generateToken = (): void => {
     const token = TokenService.encode(this.user)
     this.data = { token }
+    this.status = 200
   }
 }
 

@@ -15,7 +15,7 @@ class Method {
     this.Auth = new AuthenticationService()
   }
 
-  public respond (): ModuleResponse {
+  public respond = (): ModuleResponse => {
     return {
       status: this.status,
       data: this.data
