@@ -1,5 +1,5 @@
 import { get } from 'lodash'
-import { Router, Request, Response, NextFunction } from 'express'
+import { Router, Request, Response } from 'express'
 import { Controller, Endpoint } from '@interfaces'
 
 class ModuleRegisterService {
@@ -34,10 +34,10 @@ class ModuleRegisterService {
     return parameters
   }
 
-  private async route (req: Request, res: Response, next: NextFunction, controller: Controller): Promise<Response> {
+  private async route (req: Request, res: Response, controller: Controller): Promise<Response> {
     try {
       const params = this.getParams(controller.params, req)
-      const { status, data } = await this.controller[controller.method](...params, next)
+      const { status, data } = await this.controller[controller.method](...params)
       return res.status(status).send(data)
     } catch (err) {
       console.log(err)
@@ -55,12 +55,12 @@ class ModuleRegisterService {
     }
   }
 
-  private async decideToRoute (req: Request, res: Response, endpoint: Endpoint, next: NextFunction): Promise<Response> {
+  private async decideToRoute (req: Request, res: Response, endpoint: Endpoint): Promise<Response> {
     try {
       const controller = endpoint['@controller']
       return req.query.docs
         ? this.documentation(res, endpoint)
-        : this.route(req, res, next, controller)
+        : this.route(req, res, controller)
     } catch (err) {
       return res.status(500).send(err)
     }
@@ -69,7 +69,8 @@ class ModuleRegisterService {
   private registerSingleEndpoint = (endpoint: Endpoint): void => {
     const { route } = endpoint
     const method = endpoint.method.toLowerCase()
-    this.routes[method](route, (req: Request, res: Response, next: NextFunction): Promise<Response> => this.decideToRoute(req, res, endpoint, next))
+    this.routes[method](route, (req: Request, res: Response): Promise<Response> =>
+      this.decideToRoute(req, res, endpoint))
   }
 
   public registerEndpoints (): void {
