@@ -3,29 +3,36 @@ import UserModel from '@modules/Users/User.schema'
 import { ModuleResponse } from '@interfaces'
 
 class Deactivate extends ControllerMethod {
+  private userId: string
+
   public handle = async (userId: string): Promise<ModuleResponse> => {
-    const userExists = await this.checkIfUserExists(userId)
-    userExists && await this.deactivateUser(userId)
-    return {
-      status: userExists ? 200 : 400,
-      data: userExists
-        ? { message: 'user successfully deactivated' }
-        : { message: 'invalid user id' }
+    this.userId = userId
+
+    return this
+      .verifyIfUserExists()
+      .then(this.deactivateUser)
+      .then(this.respond)
+  }
+
+  private verifyIfUserExists = async (): Promise<void> => {
+    const { userId } = this
+    const exists = await UserModel.findOne({ _id: userId })
+    if (!exists) {
+      throw new this.HttpException(400, 'user does not exists')
     }
   }
 
-  private async checkIfUserExists (userId: string): Promise<boolean> {
-    const exists = await UserModel.findOne({ _id: userId })
-    return !!exists
-  }
+  private deactivateUser = async (): Promise<void> => {
+    const { userId } = this
 
-  private async deactivateUser (userId: string): Promise<boolean> {
-    const success = await UserModel
+    await UserModel
       .findOneAndUpdate(
         { _id: userId },
         { $set: { active: false } }
       )
-    return !!success
+
+    this.status = 200
+    this.data = { message: 'user successfully deactivated' }
   }
 }
 
