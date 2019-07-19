@@ -1,6 +1,7 @@
 import { get } from 'lodash'
 import { Router, Request, Response } from 'express'
 import { Controller, Endpoint } from '@interfaces'
+
 class ModuleRegisterService {
   public endpoints: Endpoint[]
   public controller: Controller
@@ -19,7 +20,7 @@ class ModuleRegisterService {
           .send(this.endpoints)
       } catch (err) {
         res
-          .status(500)
+          .status(err.status)
           .send({ message: err.message })
       }
     })
@@ -34,13 +35,14 @@ class ModuleRegisterService {
   }
 
   private async route (req: Request, res: Response, controller: Controller): Promise<Response> {
-    const params = this.getParams(controller.params, req)
-    const { status, data } = await this.controller[controller.method](...params)
     try {
+      const params = this.getParams(controller.params, req)
+      const { status, data } = await this.controller[controller.method](...params)
       return res.status(status).send(data)
     } catch (err) {
+      console.log(err)
       return res
-        .status(500)
+        .status(err.status || 500)
         .send({ message: err.message })
     }
   }
@@ -67,7 +69,8 @@ class ModuleRegisterService {
   private registerSingleEndpoint = (endpoint: Endpoint): void => {
     const { route } = endpoint
     const method = endpoint.method.toLowerCase()
-    this.routes[method](route, (req: Request, res: Response): Promise<Response> => this.decideToRoute(req, res, endpoint))
+    this.routes[method](route, (req: Request, res: Response): Promise<Response> =>
+      this.decideToRoute(req, res, endpoint))
   }
 
   public registerEndpoints (): void {
