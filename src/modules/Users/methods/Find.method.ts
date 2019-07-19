@@ -4,17 +4,28 @@ import UserInterface from '@modules/Users/User.interface'
 import { ModuleResponse } from '@interfaces'
 
 class Find extends ControllerMethod {
+  private userId: string
+
   public handle = async (userId: string): Promise<ModuleResponse> => {
-    const users = await this.getUser(userId)
-    return {
-      status: 200,
-      data: users
-    }
+    this.userId = userId
+
+    return this
+      .getUser()
+      .then(this.respond)
   }
 
-  private async getUser (userId: string): Promise<UserInterface> {
-    const user = await UserModel.findOne({ _id: userId })
-    return user
+  private getUser = async (): Promise<void> => {
+    const { userId } = this
+
+    const user: UserInterface =
+    await UserModel
+      .findOne({ _id: userId })
+      .catch((): any => {
+        throw new this.HttpException(400, 'user not found')
+      })
+
+    this.status = 200
+    this.data = user
   }
 }
 
