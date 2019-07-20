@@ -1,12 +1,12 @@
 import { Document } from 'mongoose'
 
-interface Address {
+export interface Address {
   country?: string
   city?: string
   state?: string
 }
 
-interface PasswordReset {
+export interface PasswordReset {
   token: string
   expiration: string
 }

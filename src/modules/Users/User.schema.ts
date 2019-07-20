@@ -2,7 +2,7 @@ import { Schema, model, HookNextFunction } from 'mongoose'
 import UserInterface from './User.interface'
 import bcrypt from 'bcrypt'
 
-const AddressSchema = new Schema({
+export const AddressSchema = new Schema({
   country: {
     type: String
   },
@@ -14,7 +14,7 @@ const AddressSchema = new Schema({
   }
 })
 
-const PasswordResetSchema = new Schema({
+export const PasswordResetSchema = new Schema({
   token: String,
   expiration: String
 })
