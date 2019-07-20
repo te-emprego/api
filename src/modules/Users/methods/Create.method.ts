@@ -1,4 +1,5 @@
 import { ModuleResponse } from '@interfaces'
+import ControllerMethod from '@classes/ControllerMethod.class'
 import UserInterface from '../User.interface'
 import UserModel from '../User.schema'
 import { validateOrReject, IsEmail, IsString, Length } from 'class-validator'
@@ -16,66 +17,54 @@ class InputValidation {
   public password: string
 }
 
-class Method {
+class Method extends ControllerMethod {
   private validation: InputValidation
-  private returnData: any
-  private returnStatus: number
+  private user: UserInterface
+  private storedUser: UserInterface
 
   public constructor () {
+    super()
     this.validation = new InputValidation()
   }
 
   public run = async (user: UserInterface): Promise<ModuleResponse> => {
-    try {
-      await this.runValidation(user)
-      const storedUser = await this.store(user)
+    this.user = user
 
-      return {
-        status: 201,
-        data: storedUser
-      }
-    } catch (error) {
-      return {
-        status: this.returnStatus || 500,
-        data: this.returnData || { message: error.message }
-      }
-    }
+    return this
+      .validateInput()
+      .then(this.verifyIfUserExists)
+      .then(this.storeUser)
+      .then(this.respond)
   }
 
-  private async runValidation (data: UserInterface): Promise<void> {
-    this.validation.name = data.name
-    this.validation.email = data.email
-    this.validation.password = data.password
+  private validateInput = async (): Promise<void> => {
+    this.validation.name = this.user.name
+    this.validation.email = this.user.email
+    this.validation.password = this.user.password
 
     await validateOrReject(this.validation)
       .catch((errors): void => {
-        this.returnStatus = 400
-        this.returnData = { message: 'fields doesn\'t pass on validator', errors }
-        throw new Error('Validation error')
+        throw new this
+          .HttpException(this.status, 'input validation error', errors)
       })
+  }
 
-    await UserModel
-      .findOne({ email: data.email })
+  private verifyIfUserExists = async (): Promise<void> => {
+    return UserModel
+      .findOne({ email: this.user.email })
       .then((user): void => {
         if (user) {
-          this.returnStatus = 400
-          this.returnData = { message: 'email already exists' }
-          throw new Error('Validation error')
+          throw new this.HttpException(400, 'user already exists')
         }
       })
   }
 
-  private async store (user: UserInterface): Promise<UserInterface> {
-    const newUser = new UserModel(user)
+  private storeUser = async (): Promise<void> => {
+    const newUser = new UserModel(this.user)
+    const storedUser = await newUser.save()
+    delete storedUser.password
 
-    try {
-      const storedUser = await newUser.save()
-      delete storedUser.password
-      return storedUser
-    } catch (error) {
-      this.returnStatus = 500
-      throw new Error(error.message)
-    }
+    this.data = storedUser
   }
 }
 

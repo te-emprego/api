@@ -4,17 +4,17 @@ import UserInterface from '@modules/Users/User.interface'
 import { ModuleResponse } from '@interfaces'
 
 class List extends ControllerMethod {
-  public handle = async (): Promise<ModuleResponse> => {
-    const users = await this.getUsers()
-    return {
-      status: 200,
-      data: users
-    }
-  }
+  private users: UserInterface[]
 
-  private async getUsers (): Promise<UserInterface[]> {
-    const users = await UserModel.find()
-    return users
+  public handle = async (): Promise<ModuleResponse> =>
+    this
+      .getUsers()
+      .then(this.respond)
+
+  private async getUsers (): Promise<void> {
+    this.users = await UserModel.find()
+    this.status = 200
+    this.data = this.users
   }
 }
 
