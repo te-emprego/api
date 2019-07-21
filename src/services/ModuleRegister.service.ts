@@ -69,7 +69,8 @@ class ModuleRegisterService {
   private registerSingleEndpoint = (endpoint: Endpoint): void => {
     const { route } = endpoint
     const method = endpoint.method.toLowerCase()
-    this.routes[method](route, (req: Request, res: Response): Promise<Response> =>
+    const middlewares = endpoint['@middlewares'] || []
+    this.routes[method](route, ...middlewares, (req: Request, res: Response): Promise<Response> =>
       this.decideToRoute(req, res, endpoint))
   }
 
