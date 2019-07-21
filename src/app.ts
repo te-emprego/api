@@ -2,7 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import cors from 'cors'
 import routes from './routes'
-import middlewares from '@middlewares'
+import middlewares from '@middlewares/index'
 import config from '@config'
 
 class App {
