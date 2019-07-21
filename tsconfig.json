@@ -7,7 +7,7 @@
       "@services/*": ["services/*"],
       "@interfaces": ["interfaces/index.ts"],
       "@config": ["config.ts"],
-      "@middlewares": ["middlewares/index.ts"],
+      "@middlewares/*": ["middlewares/*"],
       "@routes": ["routes.ts"]
     },
     "module": "commonjs",

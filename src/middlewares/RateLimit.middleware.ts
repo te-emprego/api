@@ -6,4 +6,9 @@ const limiter = new RateLimit({
   max: config.requests.limit
 })
 
+export const loginLimiter = new RateLimit({
+  windowMs: 2 * 60 * 1000,
+  max: 10
+})
+
 export default limiter

@@ -1,9 +1,10 @@
+import { loginLimiter } from '@middlewares/RateLimit.middleware'
+
 export default [
   {
     'route': '/',
     'method': 'get',
     'description': 'get all users',
-    '@middlewares': false,
     '@controller': {
       'method': 'list',
       'params': []
@@ -13,7 +14,7 @@ export default [
     'route': '/login',
     'method': 'post',
     'description': 'login user in',
-    '@middlewares': false,
+    '@middlewares': [ loginLimiter ],
     '@controller': {
       'method': 'login',
       'params': ['body.credentials']
