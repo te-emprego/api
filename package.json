@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon src/server.ts",
     "test": "jest",
-    "build": "tsc"
+    "build": "tsc",
+    "start": "nodemon src/server.ts"
   },
   "author": "",
   "license": "ISC",
