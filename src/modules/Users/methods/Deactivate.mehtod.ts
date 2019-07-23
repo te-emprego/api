@@ -1,6 +1,6 @@
-import ControllerMethod from '@classes/ControllerMethod.class'
-import UserModel from '@modules/Users/User.schema'
 import { ModuleResponse } from '@interfaces'
+import { ControllerMethod } from '@classes'
+import UserModel from '../User.schema'
 
 class Deactivate extends ControllerMethod {
   private userId: string
@@ -36,4 +36,4 @@ class Deactivate extends ControllerMethod {
   }
 }
 
-export default new Deactivate()
+export const deactivate = new Deactivate()

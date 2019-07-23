@@ -1,9 +1,9 @@
 import ModuleRegisterService from '@services/ModuleRegister.service'
-import Controller from './User.controller'
+import * as Controller from './User.controller'
 import Endpoints from './User.endpoints'
 
-const ModuleRoutes = new ModuleRegisterService(Endpoints, Controller)
+const userModule = new ModuleRegisterService(Endpoints, Controller)
 
-ModuleRoutes.registerEndpoints()
+userModule.registerEndpoints()
 
-export default ModuleRoutes.getRoutes()
+export default userModule.getRoutes()

@@ -1,5 +1,5 @@
 import { ModuleResponse } from '@interfaces'
-import ControllerMethod from '@classes/ControllerMethod.class'
+import { ControllerMethod } from '@classes'
 import UserInterface from '../User.interface'
 import UserModel from '../User.schema'
 import { validateOrReject, IsEmail, IsString, Length } from 'class-validator'
@@ -27,7 +27,7 @@ class Method extends ControllerMethod {
     this.validation = new InputValidation()
   }
 
-  public run = async (user: UserInterface): Promise<ModuleResponse> => {
+  public handle = async (user: UserInterface): Promise<ModuleResponse> => {
     this.user = user
 
     return this
@@ -68,4 +68,4 @@ class Method extends ControllerMethod {
   }
 }
 
-export default new Method()
+export const create = new Method()

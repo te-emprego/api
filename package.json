@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon src/server.ts",
     "test": "jest",
-    "build": "tsc"
+    "build": "tsc --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist",
+    "start": "node dist/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -33,6 +34,7 @@
     "sucrase": "^3.10.1",
     "ts-jest": "^24.0.2",
     "ts-node": "^8.3.0",
+    "tscpaths": "0.0.9",
     "typescript": "^3.5.3"
   },
   "dependencies": {
@@ -47,6 +49,7 @@
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "express-rate-limit": "^5.0.0",
+    "handlebars": "^4.1.2",
     "jwt-simple": "^0.5.6",
     "lodash": "^4.17.14",
     "module-alias": "^2.2.0",
@@ -57,10 +60,10 @@
   "_moduleAliases": {
     "@modules": "src/modules",
     "@middlewares": "src/middlewares",
-    "@routes": "src/routes.ts",
+    "@routes": "src/routes",
     "@classes": "src/classes",
-    "@interfaces": "src/interfaces/index.ts",
-    "@config": "src/config.ts",
+    "@interfaces": "src/interfaces/index",
+    "@config": "src/config",
     "@services": "src/services"
   },
   "config": {

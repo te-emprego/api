@@ -1,7 +1,8 @@
-import ControllerMethod from '@classes/ControllerMethod.class'
-import UserModel from '@modules/Users/User.schema'
-import UserInterface from '@modules/Users/User.interface'
 import { ModuleResponse } from '@interfaces'
+import { ControllerMethod } from '@classes'
+
+import UserModel from '../User.schema'
+import UserInterface from '../User.interface'
 
 class List extends ControllerMethod {
   private users: UserInterface[]
@@ -18,4 +19,4 @@ class List extends ControllerMethod {
   }
 }
 
-export default new List()
+export const list = new List()
