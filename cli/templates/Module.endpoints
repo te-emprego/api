@@ -1,0 +1,11 @@
+export default [
+  {
+    'route': '/',
+    'method': 'get',
+    'description': 'hi! I am a new module created using te-emprego-cli',
+    '@controller': {
+      'method': 'hi',
+      'params': []
+    }
+  }
+]

@@ -49,6 +49,7 @@
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "express-rate-limit": "^5.0.0",
+    "handlebars": "^4.1.2",
     "jwt-simple": "^0.5.6",
     "lodash": "^4.17.14",
     "module-alias": "^2.2.0",

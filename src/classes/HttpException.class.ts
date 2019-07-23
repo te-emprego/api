@@ -9,4 +9,6 @@ class HttpException {
     this.data = data || {}
   }
 }
+
+export { HttpException }
 export default HttpException

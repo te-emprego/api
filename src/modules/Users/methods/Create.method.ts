@@ -1,5 +1,5 @@
 import { ModuleResponse } from '@interfaces'
-import ControllerMethod from '@classes/ControllerMethod.class'
+import { ControllerMethod } from '@classes'
 import UserInterface from '../User.interface'
 import UserModel from '../User.schema'
 import { validateOrReject, IsEmail, IsString, Length } from 'class-validator'

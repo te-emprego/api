@@ -1,0 +1,13 @@
+import { ModuleResponse } from '@interfaces'
+import { ControllerMethod } from '@classes'
+
+class Method extends ControllerMethod {
+  public handle = async (): Promise<ModuleResponse> => {
+    this.status = 200
+    this.data = { message: 'hi!' }
+
+    return this.respond()
+  }
+}
+
+export const hi = new Method()
