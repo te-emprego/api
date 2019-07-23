@@ -36,4 +36,4 @@ class Deactivate extends ControllerMethod {
   }
 }
 
-export default new Deactivate()
+export const deactivate = new Deactivate()

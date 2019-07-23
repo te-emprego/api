@@ -29,4 +29,4 @@ class Find extends ControllerMethod {
   }
 }
 
-export default new Find()
+export const find = new Find()

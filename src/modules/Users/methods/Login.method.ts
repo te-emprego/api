@@ -65,4 +65,4 @@ class Login extends ControllerMethod {
   }
 }
 
-export default new Login()
+export const login = new Login()
