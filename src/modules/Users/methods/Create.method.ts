@@ -27,7 +27,7 @@ class Method extends ControllerMethod {
     this.validation = new InputValidation()
   }
 
-  public run = async (user: UserInterface): Promise<ModuleResponse> => {
+  public handle = async (user: UserInterface): Promise<ModuleResponse> => {
     this.user = user
 
     return this
