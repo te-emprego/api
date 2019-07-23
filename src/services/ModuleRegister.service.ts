@@ -37,7 +37,7 @@ class ModuleRegisterService {
   private async route (req: Request, res: Response, controller: Controller): Promise<Response> {
     try {
       const params = this.getParams(controller.params, req)
-      const { status, data } = await this.controller[controller.method](...params)
+      const { status, data } = await this.controller[controller.method].handle(...params)
       return res.status(status).send(data)
     } catch (err) {
       console.log(err)
