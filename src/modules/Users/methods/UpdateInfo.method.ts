@@ -103,4 +103,4 @@ class UpdateInfo extends ControllerMethod {
   }
 }
 
-export default new UpdateInfo()
+export const updateInfo = new UpdateInfo()

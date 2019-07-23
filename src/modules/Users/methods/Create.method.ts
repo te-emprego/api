@@ -68,4 +68,4 @@ class Method extends ControllerMethod {
   }
 }
 
-export default new Method()
+export const create = new Method()

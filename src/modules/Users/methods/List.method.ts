@@ -18,4 +18,4 @@ class List extends ControllerMethod {
   }
 }
 
-export default new List()
+export const list = new List()
