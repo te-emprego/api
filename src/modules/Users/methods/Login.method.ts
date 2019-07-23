@@ -1,9 +1,11 @@
-import ControllerMethod from '@classes/ControllerMethod.class'
-import TokenService from '@services/Token.service'
-import UserModel from '@modules/Users/User.schema'
-import { ModuleResponse, Credentials } from '@interfaces'
 import { validateOrReject, IsString, IsEmail } from 'class-validator'
+
+import { ModuleResponse, Credentials } from '@interfaces'
+import { ControllerMethod } from '@classes'
+import TokenService from '@services/Token.service'
+
 import UserInterface from '../User.interface'
+import UserModel from '../User.schema'
 
 class InputValidation {
   @IsString()

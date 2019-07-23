@@ -23,4 +23,5 @@ class Method {
   }
 }
 
+export { Method as ControllerMethod }
 export default Method

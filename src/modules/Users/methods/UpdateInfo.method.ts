@@ -1,8 +1,16 @@
-import ControllerMethod from '@classes/ControllerMethod.class'
-import UserModel from '@modules/Users/User.schema'
-import UserInterface, { Address } from '@modules/Users/User.interface'
+import {
+  IsString,
+  Length,
+  validateOrReject,
+  IsDate,
+  ValidateNested
+} from 'class-validator'
+
 import { ModuleResponse } from '@interfaces'
-import { IsString, Length, validateOrReject, IsDate, ValidateNested } from 'class-validator'
+import { ControllerMethod } from '@classes'
+
+import UserModel from '../User.schema'
+import UserInterface, { Address } from '../User.interface'
 
 class InputValidation {
   @IsString()

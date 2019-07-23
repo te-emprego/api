@@ -3,7 +3,7 @@
     "baseUrl": "./src",
     "paths": {
       "@modules/*": ["modules/*"],
-      "@classes/*": ["classes/*"],
+      "@classes": ["classes/index"],
       "@services/*": ["services/*"],
       "@interfaces": ["interfaces/index"],
       "@config": ["config"],
