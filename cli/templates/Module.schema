@@ -1,0 +1,29 @@
+import { Schema, model, HookNextFunction } from 'mongoose'
+import {{module}}Interface from './{{module}}.interface'
+import bcrypt from 'bcrypt'
+
+const $timestamps = { timestamps: true }
+
+const {{module}}Schema = new Schema({
+  email: {
+    type: String,
+    unique: true
+  },
+  password: {
+    type: String
+  },
+  name: {
+    type: String
+  }
+}, $timestamps
+)
+
+{{module}}Schema.pre<{{module}}Interface>('save', async function (next: Function): Promise<HookNextFunction> {
+  if (this.password) {
+    const hash = await bcrypt.hash(this.password, 10)
+    this.password = hash
+  }
+  return next()
+})
+
+export default model<{{module}}Interface>('{{module}}', {{module}}Schema)
