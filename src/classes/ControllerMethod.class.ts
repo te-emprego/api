@@ -1,5 +1,5 @@
 import { ModuleResponse } from '@interfaces'
-import HttpException from '@classes/HttpException.class'
+import { HttpException } from '@classes'
 import AuthenticationService from '@services/Authentication.service'
 
 class Method {
