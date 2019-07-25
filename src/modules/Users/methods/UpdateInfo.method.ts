@@ -10,7 +10,7 @@ import { ModuleResponse } from '@interfaces'
 import { ControllerMethod } from '@classes'
 
 import UserModel from '../User.schema'
-import UserInterface, { Address } from '../User.interface'
+import { User, Address } from '../User.interface'
 
 class InputValidation {
   @IsString()
@@ -39,11 +39,11 @@ interface SanitizedProps {
 
 class UpdateInfo extends ControllerMethod {
   private userId: string
-  private newProps: UserInterface
-  private user: UserInterface
+  private newProps: User
+  private user: User
   private sanitizedProps: SanitizedProps
 
-  public handle = async (userId: string, newProps: UserInterface): Promise<ModuleResponse> => {
+  public handle = async (userId: string, newProps: User): Promise<ModuleResponse> => {
     this.userId = userId
     this.newProps = newProps
 
@@ -72,10 +72,10 @@ class UpdateInfo extends ControllerMethod {
   }
 
   private async checkIfUserExists (): Promise<void> {
-    const user: UserInterface =
+    const user: User =
     await UserModel
       .findOne({ _id: this.userId })
-      .catch((): UserInterface => {
+      .catch((): User => {
         throw new this.HttpException(400, 'user does not existis')
       })
 

@@ -1,8 +1,8 @@
 import { ModuleResponse } from '@interfaces'
 import { ControllerMethod } from '@classes'
-import UserInterface from '../User.interface'
+import { User, Address } from '../User.interface'
 import UserModel from '../User.schema'
-import { validateOrReject, IsEmail, IsString, Length } from 'class-validator'
+import { validateOrReject, IsEmail, IsString, Length, ValidateNested } from 'class-validator'
 
 class InputValidation {
   @Length(3, 255)
@@ -15,19 +15,26 @@ class InputValidation {
   @IsString()
   @Length(6, 40)
   public password: string
+
+  @IsString()
+  @Length(8, 13)
+  public phone: string
+
+  @ValidateNested()
+  public address: Address
 }
 
 class Method extends ControllerMethod {
   private validation: InputValidation
-  private user: UserInterface
-  private storedUser: UserInterface
+  private user: User
+  private storedUser: User
 
   public constructor () {
     super()
     this.validation = new InputValidation()
   }
 
-  public handle = async (user: UserInterface): Promise<ModuleResponse> => {
+  public handle = async (user: User): Promise<ModuleResponse> => {
     this.user = user
 
     return this

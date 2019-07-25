@@ -2,7 +2,7 @@ import { ModuleResponse } from '@interfaces'
 import { ControllerMethod } from '@classes'
 
 import UserModel from '../User.schema'
-import UserInterface from '../User.interface'
+import { User } from '../User.interface'
 
 class Find extends ControllerMethod {
   private userId: string
@@ -18,7 +18,7 @@ class Find extends ControllerMethod {
   private getUser = async (): Promise<void> => {
     const { userId } = this
 
-    const user: UserInterface =
+    const user: User =
     await UserModel
       .findOne({ _id: userId })
       .catch((): any => {

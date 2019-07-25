@@ -4,7 +4,7 @@ import { ModuleResponse, Credentials } from '@interfaces'
 import { ControllerMethod } from '@classes'
 import TokenService from '@services/Token.service'
 
-import UserInterface from '../User.interface'
+import { User } from '../User.interface'
 import UserModel from '../User.schema'
 
 class InputValidation {
@@ -16,7 +16,7 @@ class InputValidation {
 }
 
 class Login extends ControllerMethod {
-  private user: UserInterface
+  private user: User
   private credentials: Credentials
 
   public handle = async (credentials: Credentials): Promise<ModuleResponse> => {
