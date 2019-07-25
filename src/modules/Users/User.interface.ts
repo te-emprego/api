@@ -11,7 +11,7 @@ export interface PasswordReset {
   expiration: string
 }
 
-export default interface UserInterface extends Document {
+export interface User extends Document {
   active: boolean
   name: string
   email: string
@@ -25,4 +25,6 @@ export default interface UserInterface extends Document {
   passwordReset?: PasswordReset
   createdAt: Date
   updatedAt: Date
+  experienceLevel: number
+  jobSearchingStatus: number
 }

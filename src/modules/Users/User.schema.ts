@@ -1,5 +1,5 @@
 import { Schema, model, HookNextFunction } from 'mongoose'
-import UserInterface from './User.interface'
+import { User } from './User.interface'
 import bcrypt from 'bcrypt'
 
 export const AddressSchema = new Schema({
@@ -31,7 +31,8 @@ const UserSchema = new Schema({
   },
   password: {
     type: String,
-    required: true
+    required: true,
+    select: false
   },
   name: {
     required: true,
@@ -59,12 +60,20 @@ const UserSchema = new Schema({
   passwordReset: {
     type: PasswordResetSchema,
     select: false
+  },
+  experienceLevel: {
+    type: Number,
+    required: true
+  },
+  jobSearchingStatus: {
+    type: Number,
+    required: true
   }
 }, {
   timestamps: true
 })
 
-UserSchema.pre<UserInterface>('save', async function (next: Function): Promise<HookNextFunction> {
+UserSchema.pre<User>('save', async function (next: Function): Promise<HookNextFunction> {
   if (this.password) {
     const hash = await bcrypt.hash(this.password, 10)
     this.password = hash
@@ -72,4 +81,4 @@ UserSchema.pre<UserInterface>('save', async function (next: Function): Promise<H
   return next()
 })
 
-export default model<UserInterface>('User', UserSchema)
+export default model<User>('User', UserSchema)

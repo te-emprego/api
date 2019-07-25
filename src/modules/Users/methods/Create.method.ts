@@ -1,8 +1,8 @@
 import { ModuleResponse } from '@interfaces'
 import { ControllerMethod } from '@classes'
-import UserInterface from '../User.interface'
+import { User, Address } from '../User.interface'
 import UserModel from '../User.schema'
-import { validateOrReject, IsEmail, IsString, Length } from 'class-validator'
+import { validateOrReject, IsEmail, IsString, Length, IsNumber, Min, Max } from 'class-validator'
 
 class InputValidation {
   @Length(3, 255)
@@ -15,19 +15,38 @@ class InputValidation {
   @IsString()
   @Length(6, 40)
   public password: string
+
+  @IsString()
+  @Length(8, 18)
+  public phone: string
+
+  public address: Address
+
+  @IsString()
+  public avatar: string
+
+  @IsNumber()
+  @Min(0)
+  @Max(3)
+  public experienceLevel
+
+  @IsNumber()
+  @Min(0)
+  @Max(3)
+  public jobSearchingStatus
 }
 
 class Method extends ControllerMethod {
   private validation: InputValidation
-  private user: UserInterface
-  private storedUser: UserInterface
+  private user: User
+  private storedUser: User
 
   public constructor () {
     super()
     this.validation = new InputValidation()
   }
 
-  public handle = async (user: UserInterface): Promise<ModuleResponse> => {
+  public handle = async (user: User): Promise<ModuleResponse> => {
     this.user = user
 
     return this
@@ -38,14 +57,19 @@ class Method extends ControllerMethod {
   }
 
   private validateInput = async (): Promise<void> => {
+    this.validation.address = this.user.address
+    this.validation.avatar = this.user.avatar
     this.validation.name = this.user.name
     this.validation.email = this.user.email
+    this.validation.experienceLevel = this.user.experienceLevel
+    this.validation.jobSearchingStatus = this.user.jobSearchingStatus
     this.validation.password = this.user.password
+    this.validation.phone = this.user.phone
 
     await validateOrReject(this.validation)
       .catch((errors): void => {
         throw new this
-          .HttpException(this.status, 'input validation error', errors)
+          .HttpException(400, 'input validation error', errors)
       })
   }
 
@@ -64,6 +88,7 @@ class Method extends ControllerMethod {
     const storedUser = await newUser.save()
     delete storedUser.password
 
+    this.status = 201
     this.data = storedUser
   }
 }
