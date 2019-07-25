@@ -31,7 +31,8 @@ const UserSchema = new Schema({
   },
   password: {
     type: String,
-    required: true
+    required: true,
+    select: false
   },
   name: {
     required: true,
@@ -59,6 +60,14 @@ const UserSchema = new Schema({
   passwordReset: {
     type: PasswordResetSchema,
     select: false
+  },
+  experienceLevel: {
+    type: Number,
+    required: true
+  },
+  jobSearchingStatus: {
+    type: Number,
+    required: true
   }
 }, {
   timestamps: true

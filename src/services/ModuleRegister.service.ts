@@ -43,7 +43,7 @@ class ModuleRegisterService {
       console.log(err)
       return res
         .status(err.status || 500)
-        .send({ message: err.message })
+        .send({ message: err.message, data: err.data })
     }
   }
 

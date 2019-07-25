@@ -16,6 +16,7 @@ class AuthenticationService {
     this.passport.authenticate('google', { ...options })
 
   public comparePassword = async (pass: string, hash: string): Promise<boolean> => {
+    console.log(pass, hash)
     try {
       return await this.bcryptCompare(pass, hash)
     } catch (err) {

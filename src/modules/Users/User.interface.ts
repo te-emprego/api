@@ -25,4 +25,6 @@ export interface User extends Document {
   passwordReset?: PasswordReset
   createdAt: Date
   updatedAt: Date
+  experienceLevel: number
+  jobSearchingStatus: number
 }
