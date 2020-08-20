@@ -43,7 +43,7 @@
     "@types/jwt-simple": "^0.5.33",
     "@types/passport": "^1.0.0",
     "@types/passport-google-oauth20": "^2.0.2",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "class-validator": "^0.9.1",
     "cors": "^2.8.5",
     "dotenv": "^8.0.0",
